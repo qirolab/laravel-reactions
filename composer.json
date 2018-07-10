@@ -1,0 +1,65 @@
+{
+    "name": "hkp22/laravel-reactions",
+    "description": "Implement reactions (like, dislike, love, emotion etc) on Laravel Eloquent models.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel", 
+        "eloquent",
+        "love",
+        "like",
+        "dislike",
+        "unlike",
+        "favorite",
+        "favourite",
+        "rate",
+        "rating",
+        "emotion",
+        "reaction",
+        "star",
+        "kudos"
+    ],
+    "authors": [
+        {
+            "name": "Harish Kumar",
+            "email": "harishpra22@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "illuminate/database": "~5.5.0|~5.6.0",
+        "illuminate/support": "~5.5.0|~5.6.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.10",
+        "mockery/mockery": "^1.0",
+        "orchestra/database": "~3.5.0|~3.6.0",
+        "orchestra/testbench": "~3.5.0|~3.6.0",
+        "phpunit/phpunit": "^6.0|^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hkp22\\Laravel\\Reactions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hkp22\\Tests\\Laravel\\Reactions\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hkp22\\Laravel\\Reactions\\ReactionsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
+}
