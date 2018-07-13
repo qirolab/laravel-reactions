@@ -27,8 +27,8 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/database": "~5.5.0|~5.6.0",
-        "illuminate/support": "~5.5.0|~5.6.0"
+        "illuminate/database": "~5.5|~5.6",
+        "illuminate/support": "~5.5|~5.6"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10",
