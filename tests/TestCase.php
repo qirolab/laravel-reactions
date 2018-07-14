@@ -2,6 +2,7 @@
 
 namespace Hkp22\Tests\Laravel\Reactions;
 
+use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Hkp22\Tests\Laravel\Reactions\Stubs\Models\User;
 
@@ -16,13 +17,42 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
+        $this->destroyPackageMigrations();
+
+        $this->publishPackageMigrations();
+
         $this->migratePackageTables();
 
         $this->migrateUnitTestTables();
 
         $this->registerPackageFactories();
 
+        // $this->registerTestMorphMaps();
+
         $this->registerUserModel();
+    }
+
+    /**
+     * Publish package migrations.
+     *
+     * @return void
+     */
+    protected function publishPackageMigrations()
+    {
+        $this->artisan('vendor:publish', [
+            '--force' => '',
+            '--tag' => 'migrations',
+        ]);
+    }
+
+    /**
+     * Delete all published package migrations.
+     *
+     * @return void
+     */
+    protected function destroyPackageMigrations()
+    {
+        File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
 
     /**
@@ -33,6 +63,19 @@ abstract class TestCase extends Orchestra
     public function tearDown()
     {
         parent::tearDown();
+    }
+
+    /**
+     * Load package service provider.
+     *
+     * @param  \Illuminate\Foundation\Application $app
+     * @return array
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            \Hkp22\Laravel\Reactions\ReactionsServiceProvider::class,
+        ];
     }
 
     /**
