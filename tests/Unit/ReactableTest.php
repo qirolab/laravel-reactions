@@ -41,7 +41,7 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_has_multiple_likes()
+    public function it_can_has_multiple_reactions()
     {
         $article = factory(Article::class)->create();
 
@@ -198,5 +198,75 @@ class ReactableTest extends TestCase
         $article->react('like');
 
         $this->assertTrue($article->isReacted);
+    }
+
+    /** @test */
+    public function it_can_has_reaction_summery()
+    {
+        $article = factory(Article::class)->create();
+
+        $users = factory(User::class, 5)->create();
+        foreach ($users as $key => $user) {
+            $article->react('like', $user);
+        }
+
+        $users = factory(User::class, 2)->create();
+        foreach ($users as $key => $user) {
+            $article->react('dislike', $user);
+        }
+
+        $users = factory(User::class, 4)->create();
+        foreach ($users as $key => $user) {
+            $article->react('clap', $user);
+        }
+
+        $users = factory(User::class, 1)->create();
+        foreach ($users as $key => $user) {
+            $article->react('hooray', $user);
+        }
+
+        $summaryAsArray = $article->reactionSummary()->toArray();
+
+        $this->assertEquals([
+            ['type' => 'clap', 'count' => '4'],
+            ['type' => 'dislike', 'count' => '2'],
+            ['type' => 'hooray', 'count' => '1'],
+            ['type' => 'like', 'count' => '5']
+        ], $summaryAsArray);
+    }
+
+    /** @test */
+    public function it_can_has_reaction_summery_attribute()
+    {
+        $article = factory(Article::class)->create();
+
+        $users = factory(User::class, 5)->create();
+        foreach ($users as $key => $user) {
+            $article->react('like', $user);
+        }
+
+        $users = factory(User::class, 2)->create();
+        foreach ($users as $key => $user) {
+            $article->react('dislike', $user);
+        }
+
+        $users = factory(User::class, 4)->create();
+        foreach ($users as $key => $user) {
+            $article->react('clap', $user);
+        }
+
+        $users = factory(User::class, 1)->create();
+        foreach ($users as $key => $user) {
+            $article->react('hooray', $user);
+        }
+
+        $summaryAsArray = $article->reaction_summary->toArray();
+
+        $this->assertEquals([
+            ['type' => 'clap', 'count' => '4'],
+            ['type' => 'dislike', 'count' => '2'],
+            ['type' => 'hooray', 'count' => '1'],
+            ['type' => 'like', 'count' => '5']
+        ], $summaryAsArray);
     }
 }

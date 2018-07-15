@@ -19,6 +19,30 @@ trait Reactable
     }
 
     /**
+     * Reaction summary
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function reactionSummary()
+    {
+        return $this->reactions()
+            ->getQuery()
+            ->select('type', \DB::raw('count(*) as count'))
+            ->groupBy('type')
+            ->get();
+    }
+
+    /**
+     * Reaction summary attribute
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getReactionSummaryAttribute()
+    {
+        return $this->reactionSummary();
+    }
+
+    /**
      * Add reaction.
      *
      * @param  mixed         $reactionType
@@ -133,7 +157,7 @@ trait Reactable
         return $query->whereHas('reactions', function ($innerQuery) use ($userId, $type) {
             $innerQuery->where('user_id', $userId);
 
-            if($type) {
+            if ($type) {
                 $innerQuery->where('type', $type);
             }
         });
