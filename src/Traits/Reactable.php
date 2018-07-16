@@ -5,6 +5,7 @@ namespace Hkp22\Laravel\Reactions\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Hkp22\Laravel\Reactions\Models\Reaction;
 use Hkp22\Laravel\Reactions\Contracts\ReactsInterface;
+use Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser;
 
 trait Reactable
 {
@@ -124,12 +125,14 @@ trait Reactable
     /**
      * Get user model.
      *
-     * @param  mixed $user
-     * @return void
+     * @param  mixed           $user
+     * @return ReactsInterface
+     *
+     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
      */
     protected function getUser($user = null)
     {
-        if (!$user) {
+        if (!$user && auth()->check()) {
             return auth()->user();
         }
 
@@ -137,7 +140,11 @@ trait Reactable
             return $user;
         }
 
-        return null;
+        if (!$user) {
+            throw InvalidReactionUser::notDefined();
+        }
+
+        throw InvalidReactionUser::invalidReactByUser();
     }
 
     /**
@@ -148,10 +155,21 @@ trait Reactable
      * @param  string                                $type
      * @param  null|int|ReactsInterface              $userId
      * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
      */
     public function scopeWhereReactedBy(Builder $query, $userId = null, $type = null)
     {
-        $user = $this->getUser($userId);
+        $user = null;
+
+        try {
+            $user = $this->getUser($userId);
+        } catch (InvalidReactionUser $e) {
+            if (!$user && !$userId) {
+                throw InvalidReactionUser::notDefined();
+            }
+        }
+
         $userId = ($user) ? $user->getKey() : $userId;
 
         return $query->whereHas('reactions', function ($innerQuery) use ($userId, $type) {
