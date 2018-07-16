@@ -69,7 +69,6 @@ trait Reacts
     {
         $reaction = $reactable->reactions()->where([
             'user_id' => $this->getKey(),
-            'type' => $type
         ])->first();
 
         if (!$reaction) {
@@ -77,6 +76,13 @@ trait Reacts
                 'user_id' => $this->getKey(),
                 'type' => $type,
             ]);
+
+            return;
+        }
+
+        if ($reaction && $type && $reaction->type != $type) {
+            $reaction->type = $type;
+            $reaction->save();
 
             return;
         }

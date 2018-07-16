@@ -114,6 +114,26 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
+    public function it_can_toggle_reaction_type_by_current_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
+        $article->toggleReaction('like');
+        $this->assertEquals(1, $article->reactions()->count());
+        $this->assertEquals($user->id, $article->reactions()->first()->user_id);
+        $this->assertEquals('like', $article->reactions()->first()->type);
+
+        $article->toggleReaction('clap');
+        $this->assertEquals(1, $article->reactions()->count());
+        $this->assertEquals($user->id, $article->reactions()->first()->user_id);
+        $this->assertEquals('clap', $article->reactions()->first()->type);
+    }
+
+    /** @test */
     public function it_can_remove_reaction_with_toggle_by_current_user()
     {
         $article = factory(Article::class)->create();
@@ -141,6 +161,24 @@ class ReactableTest extends TestCase
         $this->assertEquals(1, $article->reactions->count());
 
         $this->assertEquals($user->id, $article->reactions->first()->user_id);
+    }
+
+    /** @test */
+    public function it_can_toggle_reaction_type_by_concrete_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $article->toggleReaction('like', $user);
+        $this->assertEquals(1, $article->reactions()->count());
+        $this->assertEquals($user->id, $article->reactions()->first()->user_id);
+        $this->assertEquals('like', $article->reactions()->first()->type);
+
+        $article->toggleReaction('clap', $user);
+        $this->assertEquals(1, $article->reactions()->count());
+        $this->assertEquals($user->id, $article->reactions()->first()->user_id);
+        $this->assertEquals('clap', $article->reactions()->first()->type);
     }
 
     /** @test */
