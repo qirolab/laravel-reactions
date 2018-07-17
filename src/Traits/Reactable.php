@@ -20,6 +20,30 @@ trait Reactable
     }
 
     /**
+     * Get collection of users who reacted on reactable model.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function reactionsBy()
+    {
+        $userModel = $this->resolveUserModel();
+
+        $userIds = $this->reactions->pluck('user_id');
+
+        return $userModel::whereKey($userIds)->get();
+    }
+
+    /**
+     * Attribute to get collection of users who reacted on reactable model.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getReactionsByAttribute()
+    {
+        return $this->reactionsBy();
+    }
+
+    /**
      * Reaction summary
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -123,31 +147,6 @@ trait Reactable
     }
 
     /**
-     * Get user model.
-     *
-     * @param  mixed           $user
-     * @return ReactsInterface
-     *
-     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
-     */
-    protected function getUser($user = null)
-    {
-        if (!$user && auth()->check()) {
-            return auth()->user();
-        }
-
-        if ($user instanceof ReactsInterface) {
-            return $user;
-        }
-
-        if (!$user) {
-            throw InvalidReactionUser::notDefined();
-        }
-
-        throw InvalidReactionUser::invalidReactByUser();
-    }
-
-    /**
      * Fetch records that are reacted by a given user.
      *
      * @todo think about method name
@@ -179,5 +178,40 @@ trait Reactable
                 $innerQuery->where('type', $type);
             }
         });
+    }
+
+    /**
+     * Get user model.
+     *
+     * @param  mixed           $user
+     * @return ReactsInterface
+     *
+     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
+     */
+    private function getUser($user = null)
+    {
+        if (!$user && auth()->check()) {
+            return auth()->user();
+        }
+
+        if ($user instanceof ReactsInterface) {
+            return $user;
+        }
+
+        if (!$user) {
+            throw InvalidReactionUser::notDefined();
+        }
+
+        throw InvalidReactionUser::invalidReactByUser();
+    }
+
+    /**
+     * Retrieve User's model class name.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    private function resolveUserModel()
+    {
+        return config('auth.providers.users.model');
     }
 }

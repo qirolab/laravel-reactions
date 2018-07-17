@@ -307,4 +307,38 @@ class ReactableTest extends TestCase
             ['type' => 'like', 'count' => '5']
         ], $summaryAsArray);
     }
+
+    /** @test **/
+    public function it_can_has_collection_of_reactions_by_users()
+    {
+        $article = factory(Article::class)->create();
+
+        $users = factory(User::class, 5)->create();
+        foreach ($users as $key => $user) {
+            if($key >=3 ) {
+                $article->react('like', $user);
+            } else {
+                $article->react('clap', $user);
+            }
+        }
+
+        $this->assertEquals($users->toArray(), $article->reactionsBy()->toArray());
+    }
+
+    /** @test **/
+    public function it_can_has_collection_of_reactions_by_users_using_attribute()
+    {
+        $article = factory(Article::class)->create();
+
+        $users = factory(User::class, 5)->create();
+        foreach ($users as $key => $user) {
+            if($key >=3 ) {
+                $article->react('like', $user);
+            } else {
+                $article->react('clap', $user);
+            }
+        }
+
+        $this->assertEquals($users->toArray(), $article->reactions_by->toArray());
+    }
 }
