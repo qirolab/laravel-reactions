@@ -31,4 +31,16 @@ class Reaction extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Get the user that reacted on reactable model.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function reactBy()
+    {
+        $userModel = config('auth.providers.users.model');
+
+        return $this->belongsTo($userModel, 'user_id');
+    }
 }

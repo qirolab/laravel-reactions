@@ -4,6 +4,8 @@ namespace Hkp22\Tests\Laravel\Reactions\Unit;
 
 use Hkp22\Tests\Laravel\Reactions\TestCase;
 use Hkp22\Laravel\Reactions\Models\Reaction;
+use Hkp22\Tests\Laravel\Reactions\Stubs\Models\User;
+use Hkp22\Laravel\Reactions\Contracts\ReactsInterface;
 use Hkp22\Tests\Laravel\Reactions\Stubs\Models\Article;
 
 class ReactionModelTest extends TestCase
@@ -39,5 +41,23 @@ class ReactionModelTest extends TestCase
         ]);
 
         $this->assertInstanceOf(Article::class, Reaction::first()->reactable);
+    }
+
+    /** @test **/
+    public function it_can_belong_to_user_model()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $article->reactions()->create([
+            'user_id' => $user->getKey(),
+            'type' => 'like',
+        ]);
+
+        $userModel = config('auth.providers.users.model');
+
+        $this->assertInstanceOf($userModel, $article->reactions()->first()->reactBy);
+        $this->assertInstanceOf(ReactsInterface::class, $article->reactions()->first()->reactBy);
     }
 }
