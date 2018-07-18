@@ -235,7 +235,7 @@ class ReactableTest extends TestCase
 
         $article->react('like');
 
-        $this->assertTrue($article->isReacted);
+        $this->assertTrue($article->is_reacted);
     }
 
     /** @test */
@@ -315,7 +315,7 @@ class ReactableTest extends TestCase
 
         $users = factory(User::class, 5)->create();
         foreach ($users as $key => $user) {
-            if($key >=3 ) {
+            if ($key >= 3) {
                 $article->react('like', $user);
             } else {
                 $article->react('clap', $user);
@@ -332,7 +332,7 @@ class ReactableTest extends TestCase
 
         $users = factory(User::class, 5)->create();
         foreach ($users as $key => $user) {
-            if($key >=3 ) {
+            if ($key >= 3) {
                 $article->react('like', $user);
             } else {
                 $article->react('clap', $user);
