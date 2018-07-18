@@ -3,6 +3,8 @@
 namespace Hkp22\Laravel\Reactions\Traits;
 
 use Hkp22\Laravel\Reactions\Models\Reaction;
+use Hkp22\Laravel\Reactions\Events\OnReaction;
+use Hkp22\Laravel\Reactions\Events\OnDeleteReaction;
 use Hkp22\Laravel\Reactions\Contracts\ReactableInterface;
 
 trait Reacts
@@ -21,22 +23,16 @@ trait Reacts
         ])->first();
 
         if (!$reaction) {
-            return $reactable->reactions()->create([
-                'user_id' => $this->getKey(),
-                'type' => $type,
-            ]);
+            return $this->storeReaction($reactable, $type);
         }
 
         if ($reaction->type == $type) {
             return $reaction;
         }
 
-        $reaction->delete();
+        $this->deleteReaction($reaction, $reactable);
 
-        return $reactable->reactions()->create([
-            'user_id' => $this->getKey(),
-            'type' => $type,
-        ]);
+        return $this->storeReaction($reactable, $type);
     }
 
     /**
@@ -55,7 +51,7 @@ trait Reacts
             return;
         }
 
-        $reaction->delete();
+        $this->deleteReaction($reaction, $reactable);
     }
 
     /**
@@ -72,22 +68,16 @@ trait Reacts
         ])->first();
 
         if (!$reaction) {
-            $reactable->reactions()->create([
-                'user_id' => $this->getKey(),
-                'type' => $type,
-            ]);
+            return $this->storeReaction($reactable, $type);
+        }
 
+        $this->deleteReaction($reaction, $reactable);
+
+        if ($reaction->type == $type) {
             return;
         }
 
-        if ($reaction && $type && $reaction->type != $type) {
-            $reaction->type = $type;
-            $reaction->save();
-
-            return;
-        }
-
-        $reaction->delete();
+        return $this->storeReaction($reactable, $type);
     }
 
     /**
@@ -110,5 +100,40 @@ trait Reacts
         }
 
         return $isReacted->exists();
+    }
+
+    /**
+     * Store reaction.
+     *
+     * @param  ReactableInterface                       $reactable
+     * @param  mixed                                    $type
+     * @return \Hkp22\Laravel\Reactions\Models\Reaction
+     */
+    protected function storeReaction(ReactableInterface $reactable, $type)
+    {
+        $reaction = $reactable->reactions()->create([
+            'user_id' => $this->getKey(),
+            'type' => $type,
+        ]);
+
+        event(new OnReaction($reactable, $reaction, $this));
+
+        return $reaction;
+    }
+
+    /**
+     * Delete reaction.
+     *
+     * @param  Reaction           $reaction
+     * @param  ReactableInterface $reactable
+     * @return void
+     */
+    protected function deleteReaction(Reaction $reaction, ReactableInterface $reactable)
+    {
+        $response = $reaction->delete();
+
+        event(new OnDeleteReaction($reactable, $reaction, $this));
+
+        return $response;
     }
 }
