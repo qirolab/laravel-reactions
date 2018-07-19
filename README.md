@@ -84,7 +84,7 @@ $article->removeReaction($user);
 ```
 
 ### Toggle Reaction
-Toggle reaction method will add reaction to the model if the user has not reacted before. If a user has already reacted then it will replace the previous reaction with a new reaction. For example, if the user has reacted `like` on the model. Now on toggles reaction with `dislike` then it will remove the `like` and stores the `dislike` reaction. 
+The toggle reaction method will add a reaction to the model if the user has not reacted. If a user has already reacted, then it will replace the previous reaction with a new reaction. For example, if the user has reacted 'like' on the model. Now on toggles reaction to 'dislike' then it will remove the 'like' and stores the 'dislike' reaction.
 
 If a user has reacted `like` then on toggle reaction with `like`. It will remove the reaction.
 
