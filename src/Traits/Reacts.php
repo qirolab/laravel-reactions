@@ -22,7 +22,7 @@ trait Reacts
             'user_id' => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
@@ -47,7 +47,7 @@ trait Reacts
             'user_id' => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return;
         }
 
@@ -67,7 +67,7 @@ trait Reacts
             'user_id' => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
