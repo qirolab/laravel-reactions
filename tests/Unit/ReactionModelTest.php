@@ -14,7 +14,7 @@ class ReactionModelTest extends TestCase
     public function it_can_fill_user_id()
     {
         $reaction = new Reaction([
-            'user_id' => 6
+            'user_id' => 6,
         ]);
 
         $this->assertEquals(6, $reaction->user_id);

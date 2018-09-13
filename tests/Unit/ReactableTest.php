@@ -269,7 +269,7 @@ class ReactableTest extends TestCase
             ['type' => 'clap', 'count' => '4'],
             ['type' => 'dislike', 'count' => '2'],
             ['type' => 'hooray', 'count' => '1'],
-            ['type' => 'like', 'count' => '5']
+            ['type' => 'like', 'count' => '5'],
         ], $summaryAsArray);
     }
 
@@ -304,7 +304,7 @@ class ReactableTest extends TestCase
             ['type' => 'clap', 'count' => '4'],
             ['type' => 'dislike', 'count' => '2'],
             ['type' => 'hooray', 'count' => '1'],
-            ['type' => 'like', 'count' => '5']
+            ['type' => 'like', 'count' => '5'],
         ], $summaryAsArray);
     }
 

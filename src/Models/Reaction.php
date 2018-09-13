@@ -34,7 +34,7 @@ class Reaction extends Model
 
     /**
      * Get the user that reacted on reactable model.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function reactBy()

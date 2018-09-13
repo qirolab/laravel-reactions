@@ -44,7 +44,7 @@ trait Reactable
     }
 
     /**
-     * Reaction summary
+     * Reaction summary.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -58,7 +58,7 @@ trait Reactable
     }
 
     /**
-     * Reaction summary attribute
+     * Reaction summary attribute.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -86,11 +86,11 @@ trait Reactable
     }
 
     /**
-    * Remove reaction.
-    *
-    * @param  mixed $user
-    * @return bool
-    */
+     * Remove reaction.
+     *
+     * @param  mixed $user
+     * @return bool
+     */
     public function removeReaction($user = null)
     {
         $user = $this->getUser($user);
@@ -103,7 +103,7 @@ trait Reactable
     }
 
     /**
-     * Toggle Reaction
+     * Toggle Reaction.
      *
      * @param  mixed $reactionType
      * @param  mixed $user
@@ -164,7 +164,7 @@ trait Reactable
         try {
             $user = $this->getUser($userId);
         } catch (InvalidReactionUser $e) {
-            if (!$user && !$userId) {
+            if (! $user && ! $userId) {
                 throw InvalidReactionUser::notDefined();
             }
         }
@@ -190,7 +190,7 @@ trait Reactable
      */
     private function getUser($user = null)
     {
-        if (!$user && auth()->check()) {
+        if (! $user && auth()->check()) {
             return auth()->user();
         }
 
@@ -198,7 +198,7 @@ trait Reactable
             return $user;
         }
 
-        if (!$user) {
+        if (! $user) {
             throw InvalidReactionUser::notDefined();
         }
 

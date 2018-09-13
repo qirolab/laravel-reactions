@@ -26,14 +26,14 @@ class ReactionsServiceProvider extends ServiceProvider
     }
 
     /**
-    * Load migrations.
-    *
-    * @return void
-    */
+     * Load migrations.
+     *
+     * @return void
+     */
     protected function loadMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $migrationsPath = __DIR__ . '/../migrations';
+            $migrationsPath = __DIR__.'/../migrations';
 
             $this->publishes([
                 $migrationsPath => database_path('migrations'),
