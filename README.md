@@ -1,4 +1,4 @@
-# Laravel Reactions
+# Laravel Reactions [![GitHub release](https://img.shields.io/github/release/hkp22/laravel-reactions.svg?style=flat-square)](https://github.com/hkp22/laravel-reactions) [![Travis (.org) branch](https://img.shields.io/travis/hkp22/laravel-reactions/master.svg?style=flat-square)](https://github.com/hkp22/laravel-reactions) [![StyleCI](https://github.styleci.io/repos/140428012/shield?branch=master)](https://github.styleci.io/repos/140428012) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hkp22/laravel-reactions)
 
 Laravel reactions package for implementing reactions (eg: like, dislike, love, emotion etc) on Eloquent models.
 
