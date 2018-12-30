@@ -1,6 +1,6 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions;
+namespace Qirolab\Laravel\Reactions;
 
 use Illuminate\Support\ServiceProvider;
 

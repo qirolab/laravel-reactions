@@ -1,4 +1,4 @@
-# Laravel Reactions [![GitHub release](https://img.shields.io/github/release/hkp22/laravel-reactions.svg?style=flat-square)](https://github.com/hkp22/laravel-reactions) [![Travis (.org) branch](https://img.shields.io/travis/hkp22/laravel-reactions/master.svg?style=flat-square)](https://github.com/hkp22/laravel-reactions) [![StyleCI](https://github.styleci.io/repos/140428012/shield?branch=master)](https://github.styleci.io/repos/140428012) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hkp22/laravel-reactions)
+# Laravel Reactions [![GitHub release](https://img.shields.io/github/release/qirolab/laravel-reactions.svg?style=flat-square)](https://github.com/qirolab/laravel-reactions) [![Travis (.org) branch](https://img.shields.io/travis/qirolab/laravel-reactions/master.svg?style=flat-square)](https://github.com/qirolab/laravel-reactions) [![StyleCI](https://github.styleci.io/repos/140428012/shield?branch=master)](https://github.styleci.io/repos/140428012) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/qirolab/laravel-reactions)
 
 Laravel reactions package for implementing reactions (eg: like, dislike, love, emotion etc) on Eloquent models.
 
@@ -7,7 +7,7 @@ Laravel reactions package for implementing reactions (eg: like, dislike, love, e
 Download package into the project using Composer.
 
 ```bash
-$ composer require hkp22/laravel-reactions
+$ composer require qirolab/laravel-reactions
 ```
 
 ### Registering package
@@ -17,7 +17,7 @@ For Laravel 5.4 or earlier releases version include the service provider within 
 
 ```php
 'providers' => [
-    Hkp22\Laravel\Reactions\ReactionsServiceProvider::class,
+    Qirolab\Laravel\Reactions\ReactionsServiceProvider::class,
 ],
 ```
 
@@ -25,7 +25,7 @@ For Laravel 5.4 or earlier releases version include the service provider within 
 If you want to make changes in migrations, publish them to your application first.
 
 ```bash
-$ php artisan vendor:publish --provider="Hkp22\Laravel\Reactions\ReactionsServiceProvider" --tag=migrations
+$ php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag=migrations
 ```
 
 Run database migrations.
@@ -36,11 +36,11 @@ $ php artisan migrate
 ## Usage
 
 ### Prepare Reacts (User) Model
-Use `Hkp22\Laravel\Reactions\Contracts\ReactsInterface` contract in model which will perform react behavior on reactable model and implement it and use `Hkp22\Laravel\Reactions\Traits\Reacts` trait.
+Use `Qirolab\Laravel\Reactions\Contracts\ReactsInterface` contract in model which will perform react behavior on reactable model and implement it and use `Qirolab\Laravel\Reactions\Traits\Reacts` trait.
 
 ```php
-use Hkp22\Laravel\Reactions\Traits\Reacts;
-use Hkp22\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements ReactsInterface
@@ -51,12 +51,12 @@ class User extends Authenticatable implements ReactsInterface
 
 ### Prepare Reactable Model
 
-Use `Hkp22\Laravel\Reactions\Contracts\ReactableInterface` contract in model which will get reaction behavior and implement it and use `Hkp22\Laravel\Reactions\Traits\Reactable` trait.
+Use `Qirolab\Laravel\Reactions\Contracts\ReactableInterface` contract in model which will get reaction behavior and implement it and use `Qirolab\Laravel\Reactions\Traits\Reactable` trait.
 
 ```php
 use Illuminate\Database\Eloquent\Model;
-use Hkp22\Laravel\Reactions\Traits\Reactable;
-use Hkp22\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 
 class Article extends Model implements ReactableInterface
 {
@@ -139,9 +139,9 @@ Article::whereReactedBy($user->id)->get();
 
 ### Events
 
-On each reaction added `\Hkp22\Laravel\Reactions\Events\OnReaction` event is fired.
+On each reaction added `\Qirolab\Laravel\Reactions\Events\OnReaction` event is fired.
 
-On each reaction removed `\Hkp22\Laravel\Reactions\Events\OnDeleteReaction` event is fired.
+On each reaction removed `\Qirolab\Laravel\Reactions\Events\OnDeleteReaction` event is fired.
 
 ### Testing
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions\Exceptions;
+namespace Qirolab\Laravel\Reactions\Exceptions;
 
 use Exception;
 

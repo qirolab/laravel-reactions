@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use Hkp22\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 
 /*
  * @var \Illuminate\Database\Eloquent\Factory $factory

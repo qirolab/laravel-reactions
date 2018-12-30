@@ -1,11 +1,11 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions\Traits;
+namespace Qirolab\Laravel\Reactions\Traits;
 
-use Hkp22\Laravel\Reactions\Models\Reaction;
-use Hkp22\Laravel\Reactions\Events\OnReaction;
-use Hkp22\Laravel\Reactions\Events\OnDeleteReaction;
-use Hkp22\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Models\Reaction;
+use Qirolab\Laravel\Reactions\Events\OnReaction;
+use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 
 trait Reacts
 {
@@ -107,7 +107,7 @@ trait Reacts
      *
      * @param  ReactableInterface                       $reactable
      * @param  mixed                                    $type
-     * @return \Hkp22\Laravel\Reactions\Models\Reaction
+     * @return \Qirolab\Laravel\Reactions\Models\Reaction
      */
     protected function storeReaction(ReactableInterface $reactable, $type)
     {

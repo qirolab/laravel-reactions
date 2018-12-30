@@ -1,6 +1,6 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions\Models;
+namespace Qirolab\Laravel\Reactions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

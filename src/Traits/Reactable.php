@@ -1,11 +1,11 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions\Traits;
+namespace Qirolab\Laravel\Reactions\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
-use Hkp22\Laravel\Reactions\Models\Reaction;
-use Hkp22\Laravel\Reactions\Contracts\ReactsInterface;
-use Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser;
+use Qirolab\Laravel\Reactions\Models\Reaction;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser;
 
 trait Reactable
 {
@@ -155,7 +155,7 @@ trait Reactable
      * @param  null|int|ReactsInterface              $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
+     * @throw \Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser
      */
     public function scopeWhereReactedBy(Builder $query, $userId = null, $type = null)
     {
@@ -186,7 +186,7 @@ trait Reactable
      * @param  mixed           $user
      * @return ReactsInterface
      *
-     * @throw \Hkp22\Laravel\Reactions\Exceptions\InvalidReactionUser
+     * @throw \Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser
      */
     private function getUser($user = null)
     {
