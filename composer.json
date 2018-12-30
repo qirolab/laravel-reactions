@@ -1,10 +1,10 @@
 {
-    "name": "hkp22/laravel-reactions",
+    "name": "qirolab/laravel-reactions",
     "description": "Implement reactions (like, dislike, love, emotion etc) on Laravel Eloquent models.",
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "laravel", 
+        "laravel",
         "eloquent",
         "love",
         "like",
@@ -22,29 +22,29 @@
     "authors": [
         {
             "name": "Harish Kumar",
-            "email": "harishpra22@gmail.com"
+            "email": "harish.pra22@gmail.com"
         }
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/database": "~5.5|~5.6",
-        "illuminate/support": "~5.5|~5.6"
+        "illuminate/database": "~5.5|~5.6|~5.7|~5.8",
+        "illuminate/support": "~5.5|~5.6|~5.7|~5.8"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10",
         "mockery/mockery": "^1.0",
         "orchestra/database": "~3.5.0|~3.6.0",
         "orchestra/testbench": "~3.5.0|~3.6.0",
-        "phpunit/phpunit": "^6.0|^7.0"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Hkp22\\Laravel\\Reactions\\": "src/"
+            "Qirolab\\Laravel\\Reactions\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hkp22\\Tests\\Laravel\\Reactions\\": "tests/"
+            "Qirolab\\Tests\\Laravel\\Reactions\\": "tests/"
         }
     },
     "scripts": {
@@ -56,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hkp22\\Laravel\\Reactions\\ReactionsServiceProvider"
+                "Qirolab\\Laravel\\Reactions\\ReactionsServiceProvider"
             ]
         }
     },

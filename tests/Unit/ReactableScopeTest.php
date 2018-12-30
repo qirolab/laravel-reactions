@@ -1,10 +1,10 @@
 <?php
 
-namespace Hkp22\Tests\Laravel\Reactions\Unit;
+namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Hkp22\Tests\Laravel\Reactions\TestCase;
-use Hkp22\Tests\Laravel\Reactions\Stubs\Models\User;
-use Hkp22\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 
 class ReactableScopeTest extends TestCase
 {
