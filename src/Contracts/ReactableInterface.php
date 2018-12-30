@@ -1,6 +1,6 @@
 <?php
 
-namespace Hkp22\Laravel\Reactions\Contracts;
+namespace Qirolab\Laravel\Reactions\Contracts;
 
 interface ReactableInterface
 {

@@ -1,10 +1,10 @@
 {
-    "name": "hkp22/laravel-reactions",
+    "name": "qirolab/laravel-reactions",
     "description": "Implement reactions (like, dislike, love, emotion etc) on Laravel Eloquent models.",
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "laravel", 
+        "laravel",
         "eloquent",
         "love",
         "like",
@@ -22,7 +22,7 @@
     "authors": [
         {
             "name": "Harish Kumar",
-            "email": "harishpra22@gmail.com"
+            "email": "harish.pra22@gmail.com"
         }
     ],
     "require": {
@@ -39,12 +39,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Hkp22\\Laravel\\Reactions\\": "src/"
+            "Qirolab\\Laravel\\Reactions\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hkp22\\Tests\\Laravel\\Reactions\\": "tests/"
+            "Qirolab\\Tests\\Laravel\\Reactions\\": "tests/"
         }
     },
     "scripts": {
@@ -56,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hkp22\\Laravel\\Reactions\\ReactionsServiceProvider"
+                "Qirolab\\Laravel\\Reactions\\ReactionsServiceProvider"
             ]
         }
     },

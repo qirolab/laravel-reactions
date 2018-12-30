@@ -1,10 +1,10 @@
 <?php
 
-namespace Hkp22\Tests\Laravel\Reactions;
+namespace Qirolab\Tests\Laravel\Reactions;
 
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Hkp22\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 
 abstract class TestCase extends Orchestra
 {
@@ -74,7 +74,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Hkp22\Laravel\Reactions\ReactionsServiceProvider::class,
+            \Qirolab\Laravel\Reactions\ReactionsServiceProvider::class,
         ];
     }
 

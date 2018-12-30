@@ -1,10 +1,10 @@
 <?php
 
-namespace Hkp22\Tests\Laravel\Reactions\Stubs\Models;
+namespace Qirolab\Tests\Laravel\Reactions\Stubs\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Hkp22\Laravel\Reactions\Traits\Reactable;
-use Hkp22\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 
 class Article extends Model implements ReactableInterface
 {

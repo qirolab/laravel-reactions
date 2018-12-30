@@ -1,9 +1,9 @@
 <?php
 
-namespace Hkp22\Tests\Laravel\Reactions\Stubs\Models;
+namespace Qirolab\Tests\Laravel\Reactions\Stubs\Models;
 
-use Hkp22\Laravel\Reactions\Traits\Reacts;
-use Hkp22\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements ReactsInterface
