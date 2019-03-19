@@ -10,9 +10,8 @@ env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
-  allow_failures:
-    - php: nightly
-
+    allow_failures:
+      - php: nightly
 
 before_script:
   - travis_retry composer self-update
