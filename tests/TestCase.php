@@ -21,13 +21,9 @@ abstract class TestCase extends Orchestra
 
         $this->publishPackageMigrations();
 
-        $this->migratePackageTables();
-
-        $this->migrateUnitTestTables();
+        $this->setUpDatabase();
 
         $this->registerPackageFactories();
-
-        // $this->registerTestMorphMaps();
 
         $this->registerUserModel();
     }
@@ -79,27 +75,19 @@ abstract class TestCase extends Orchestra
     }
 
     /**
-     * Perform package database migrations.
+     * Set up the database.
      *
      * @return void
      */
-    protected function migratePackageTables()
+    protected function setUpDatabase()
     {
-        $this->loadMigrationsFrom([
-            '--realpath' => database_path('migrations'),
-        ]);
-    }
+        include_once __DIR__.'/../migrations/2018_07_10_000000_create_reactions_table.php';
+        include_once __DIR__.'/database/migrations/2018_07_10_000000_create_users_table.php';
+        include_once __DIR__.'/database/migrations/2018_07_11_000000_create_articles_table.php';
 
-    /**
-     * Perform unit test database migrations.
-     *
-     * @return void
-     */
-    protected function migrateUnitTestTables()
-    {
-        $this->loadMigrationsFrom([
-            '--realpath' => realpath(__DIR__.'/database/migrations'),
-        ]);
+        (new \CreateReactionsTable())->up();
+        (new \CreateUsersTable())->up();
+        (new \CreateArticlesTable())->up();
     }
 
     /**

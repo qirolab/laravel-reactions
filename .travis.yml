@@ -1,11 +1,22 @@
 language: php
 
-php:
-  - 7.1
-  - 7.2
+env:
+  global:
+    - SETUP=stable
 
-before_script:
-  - composer self-update
-  - composer install --prefer-dist --no-interaction
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.1
+    - php: 7.1
+      env: SETUP=lowest
+    - php: 7.2
+    - php: 7.2
+      env: SETUP=lowest
+    - php: 7.3
 
-script: ./vendor/bin/phpunit
+install:
+  - if [[ $SETUP = 'stable' ]]; then travis_retry composer update --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $SETUP = 'lowest' ]]; then travis_retry composer update --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
+
+script: vendor/bin/phpunit
