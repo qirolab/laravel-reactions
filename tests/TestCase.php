@@ -91,8 +91,8 @@ abstract class TestCase extends Orchestra
         (new \CreateReactionsTable())->up();
         (new \CreateUsersTable())->up();
         (new \CreateArticlesTable())->up();
-
     }
+
     /**
      * Perform package database migrations.
      *
