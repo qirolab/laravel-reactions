@@ -6,8 +6,18 @@ php:
   - 7.3
   - nightly
 
-before_script:
-  - composer self-update
-  - composer install --prefer-dist --no-interaction
+matrix:
+  include:
+  - php: 7.0
+    env: COMPOSER_FLAGS="--prefer-lowest"
+  - php: 7.1
+    env: COMPOSER_FLAGS="--prefer-lowest"
+  allow_failures:
+  - php: nightly
 
-script: ./vendor/bin/phpunit
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+
+script:
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
