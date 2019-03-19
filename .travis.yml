@@ -4,16 +4,11 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - nightly
 
 env:
   matrix:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
-
-matrix:
-  allow_failures:
-    - php: nightly
 
 before_script:
   - travis_retry composer self-update
