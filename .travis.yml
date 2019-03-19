@@ -6,14 +6,13 @@ php:
   - 7.3
   - nightly
 
-matrix:
-  include:
-  - php: 7.0
-    env: COMPOSER_FLAGS="--prefer-lowest"
-  - php: 7.1
-    env: COMPOSER_FLAGS="--prefer-lowest"
+env:
+  matrix:
+    - COMPOSER_FLAGS="--prefer-lowest"
+    - COMPOSER_FLAGS=""
   allow_failures:
-  - php: nightly
+    - php: nightly
+
 
 before_script:
   - travis_retry composer self-update
@@ -21,3 +20,6 @@ before_script:
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
