@@ -85,9 +85,7 @@ abstract class TestCase extends Orchestra
      */
     protected function migratePackageTables()
     {
-        $this->loadMigrationsFrom([
-            '--realpath' => database_path('migrations'),
-        ]);
+        $this->loadMigrationsFrom(database_path('migrations'));
     }
 
     /**
