@@ -12,6 +12,6 @@ env:
     - COMPOSER_FLAGS=""
 
 before_script:
-  - travis_retry composer install ${COMPOSER_FLAGS} --no-interaction --prefer-source
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
 script: ./vendor/bin/phpunit
