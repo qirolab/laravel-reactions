@@ -2,6 +2,38 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.2.0 - 2019-04-01
+
+### Fixed
+- Changed output for `reactionSummary()` and 'reaction_summary' method in reactable model.
+```php
+$article->reactionSummary();
+$article->reaction_summary;
+
+// example
+$article->reaction_summary->toArray();
+// output
+/*
+[
+    "like" => 5,
+    "dislike" => 2,
+    "clap" => 4,
+    "hooray" => 1
+]
+*/
+```
+- Fixed `toggleReaction()` function. Now it will return `Qirolab\Laravel\Reactions\Models\Reaction` object.
+
+### Added
+- new `reacted()` method added on in reactable model.
+```php
+$article->reacted(); // current login user
+```
+- new `reactedOn($article)` method added to reacts model.
+```php
+$user->reactedOn($article);
+```
+
 ## 2.1.0 - 2019-03-20
 
 - Laravel 5.8 compatibility
