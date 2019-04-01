@@ -137,6 +137,16 @@ Article::whereReactedBy($user)->get();
 Article::whereReactedBy($user->id)->get();
 ```
 
+### Reaction on Model
+```php
+// It will return the Reaction object that is reacted by given user.
+$article->reacted($user);
+$article->reacted(); // current login user
+$article->reacted; // current login user
+
+$user->reactedOn($article);
+```
+
 ### Events
 
 On each reaction added `\Qirolab\Laravel\Reactions\Events\OnReaction` event is fired.

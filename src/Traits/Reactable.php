@@ -117,6 +117,29 @@ trait Reactable
     }
 
     /**
+     * Reaction on reactable model by user.
+     *
+     * @param mixed $user
+     * @return Reaction
+     */
+    public function reacted($user = null)
+    {
+        $user = $this->getUser($user);
+
+        return $this->reactions->where('user_id', $user->getKey())->first();
+    }
+
+    /**
+     * Reaction on reactable model by user.
+     *
+     * @return Reaction
+     */
+    public function getReactedAttribute()
+    {
+        return $this->reacted();
+    }
+
+    /**
      * Check is reacted by user.
      *
      * @param  mixed $user

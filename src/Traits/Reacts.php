@@ -81,6 +81,17 @@ trait Reacts
     }
 
     /**
+     * Reaction on reactable model.
+     *
+     * @param  ReactableInterface $reactable
+     * @return Reaction
+     */
+    public function ReactedOn(ReactableInterface $reactable)
+    {
+        return $reactable->reacted($this);
+    }
+
+    /**
      * Check is reacted on reactable model.
      *
      * @param  ReactableInterface $reactable

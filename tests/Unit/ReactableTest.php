@@ -304,10 +304,10 @@ class ReactableTest extends TestCase
         $summaryAsArray = $article->reaction_summary->toArray();
 
         $this->assertEquals([
-            ['type' => 'clap', 'count' => '4'],
-            ['type' => 'dislike', 'count' => '2'],
-            ['type' => 'hooray', 'count' => '1'],
-            ['type' => 'like', 'count' => '5'],
+            "like" => 5,
+            "dislike" => 2,
+            "clap" => 4,
+            "hooray" => 1
         ], $summaryAsArray);
     }
 
@@ -343,5 +343,35 @@ class ReactableTest extends TestCase
         }
 
         $this->assertEquals($users->toArray(), $article->reactions_by->toArray());
+    }
+
+    /** @test **/
+    public function it_can_has_reacted_reactions_by_current_login_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
+        $article->react('like');
+
+        $this->assertInstanceOf(Reaction::class, $article->reacted());
+        $this->assertInstanceOf(Reaction::class, $article->reacted);
+        $this->assertEquals('like', $article->reacted()->type);
+        $this->assertEquals('like', $article->reacted->type);
+    }
+
+    /** @test **/
+    public function it_can_has_reacted_reactions_by_given_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $article->react('like', $user);
+
+        $this->assertInstanceOf(Reaction::class, $article->reacted($user));
+        $this->assertEquals('like', $article->reacted($user)->type);
     }
 }
