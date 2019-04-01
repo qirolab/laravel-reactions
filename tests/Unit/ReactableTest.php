@@ -269,10 +269,10 @@ class ReactableTest extends TestCase
         $summaryAsArray = $article->reactionSummary()->toArray();
 
         $this->assertEquals([
-            "like" => 5,
-            "dislike" => 2,
-            "clap" => 4,
-            "hooray" => 1
+            'like' => 5,
+            'dislike' => 2,
+            'clap' => 4,
+            'hooray' => 1,
         ], $summaryAsArray);
     }
 
@@ -304,10 +304,10 @@ class ReactableTest extends TestCase
         $summaryAsArray = $article->reaction_summary->toArray();
 
         $this->assertEquals([
-            "like" => 5,
-            "dislike" => 2,
-            "clap" => 4,
-            "hooray" => 1
+            'like' => 5,
+            'dislike' => 2,
+            'clap' => 4,
+            'hooray' => 1,
         ], $summaryAsArray);
     }
 
