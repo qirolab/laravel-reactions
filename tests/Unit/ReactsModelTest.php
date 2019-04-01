@@ -3,6 +3,7 @@
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
 use Qirolab\Tests\Laravel\Reactions\TestCase;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 
@@ -146,7 +147,7 @@ class ReactsModelTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_liker_has_liked_likeable()
+    public function it_can_check_if_reacted_on_reactable_model()
     {
         $user1 = factory(User::class)->create();
 
@@ -159,5 +160,18 @@ class ReactsModelTest extends TestCase
         $user2 = factory(User::class)->create();
 
         $this->assertFalse($user2->isReactedOn($article));
+    }
+
+    /** @test **/
+    public function it_can_have_reacted_reaction_on_reactable_model()
+    {
+        $user = factory(User::class)->create();
+
+        $article = factory(Article::class)->create();
+
+        $user->reactTo($article, 'like');
+
+        $this->assertInstanceOf(Reaction::class, $user->reactedOn($article));
+        $this->assertEquals('like', $user->reactedOn($article)->type);
     }
 }

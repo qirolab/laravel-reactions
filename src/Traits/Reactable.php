@@ -50,11 +50,9 @@ trait Reactable
      */
     public function reactionSummary()
     {
-        return $this->reactions()
-            ->getQuery()
-            ->select('type', \DB::raw('count(*) as count'))
-            ->groupBy('type')
-            ->get();
+        return $this->reactions->groupBy('type')->map(function ($val) {
+            return $val->count();
+        });
     }
 
     /**
@@ -107,15 +105,38 @@ trait Reactable
      *
      * @param  mixed $reactionType
      * @param  mixed $user
-     * @return void
+     * @return void|Reaction
      */
     public function toggleReaction($reactionType, $user = null)
     {
         $user = $this->getUser($user);
 
         if ($user) {
-            $user->toggleReactionOn($this, $reactionType);
+            return $user->toggleReactionOn($this, $reactionType);
         }
+    }
+
+    /**
+     * Reaction on reactable model by user.
+     *
+     * @param mixed $user
+     * @return Reaction
+     */
+    public function reacted($user = null)
+    {
+        $user = $this->getUser($user);
+
+        return $this->reactions->where('user_id', $user->getKey())->first();
+    }
+
+    /**
+     * Reaction on reactable model by user.
+     *
+     * @return Reaction
+     */
+    public function getReactedAttribute()
+    {
+        return $this->reacted();
     }
 
     /**

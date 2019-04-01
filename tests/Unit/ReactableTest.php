@@ -3,6 +3,7 @@
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
 use Qirolab\Tests\Laravel\Reactions\TestCase;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 
@@ -122,12 +123,14 @@ class ReactableTest extends TestCase
 
         $this->actingAs($user);
 
-        $article->toggleReaction('like');
+        $reaction = $article->toggleReaction('like');
+        $this->assertInstanceOf(Reaction::class, $reaction);
         $this->assertEquals(1, $article->reactions()->count());
         $this->assertEquals($user->id, $article->reactions()->first()->user_id);
         $this->assertEquals('like', $article->reactions()->first()->type);
 
-        $article->toggleReaction('clap');
+        $reaction = $article->toggleReaction('clap');
+        $this->assertInstanceOf(Reaction::class, $reaction);
         $this->assertEquals(1, $article->reactions()->count());
         $this->assertEquals($user->id, $article->reactions()->first()->user_id);
         $this->assertEquals('clap', $article->reactions()->first()->type);
@@ -266,10 +269,10 @@ class ReactableTest extends TestCase
         $summaryAsArray = $article->reactionSummary()->toArray();
 
         $this->assertEquals([
-            ['type' => 'clap', 'count' => '4'],
-            ['type' => 'dislike', 'count' => '2'],
-            ['type' => 'hooray', 'count' => '1'],
-            ['type' => 'like', 'count' => '5'],
+            "like" => 5,
+            "dislike" => 2,
+            "clap" => 4,
+            "hooray" => 1
         ], $summaryAsArray);
     }
 
@@ -301,10 +304,10 @@ class ReactableTest extends TestCase
         $summaryAsArray = $article->reaction_summary->toArray();
 
         $this->assertEquals([
-            ['type' => 'clap', 'count' => '4'],
-            ['type' => 'dislike', 'count' => '2'],
-            ['type' => 'hooray', 'count' => '1'],
-            ['type' => 'like', 'count' => '5'],
+            "like" => 5,
+            "dislike" => 2,
+            "clap" => 4,
+            "hooray" => 1
         ], $summaryAsArray);
     }
 
@@ -340,5 +343,35 @@ class ReactableTest extends TestCase
         }
 
         $this->assertEquals($users->toArray(), $article->reactions_by->toArray());
+    }
+
+    /** @test **/
+    public function it_can_has_reacted_reactions_by_current_login_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+
+        $article->react('like');
+
+        $this->assertInstanceOf(Reaction::class, $article->reacted());
+        $this->assertInstanceOf(Reaction::class, $article->reacted);
+        $this->assertEquals('like', $article->reacted()->type);
+        $this->assertEquals('like', $article->reacted->type);
+    }
+
+    /** @test **/
+    public function it_can_has_reacted_reactions_by_given_user()
+    {
+        $article = factory(Article::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $article->react('like', $user);
+
+        $this->assertInstanceOf(Reaction::class, $article->reacted($user));
+        $this->assertEquals('like', $article->reacted($user)->type);
     }
 }

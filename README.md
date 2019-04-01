@@ -115,10 +115,10 @@ $article->reaction_summary->toArray();
 // output
 /*
 [
-    ['type' => 'clap', 'count' => '4'],
-    ['type' => 'dislike', 'count' => '2'],
-    ['type' => 'hooray', 'count' => '1'],
-    ['type' => 'like', 'count' => '5']
+    "like" => 5,
+    "dislike" => 2,
+    "clap" => 4,
+    "hooray" => 1
 ]
 */
 ```
@@ -135,6 +135,16 @@ Article::whereReactedBy()->get(); // current login user
 
 Article::whereReactedBy($user)->get();
 Article::whereReactedBy($user->id)->get();
+```
+
+### Reaction on Model
+```php
+// It will return the Reaction object that is reacted by given user.
+$article->reacted($user);
+$article->reacted(); // current login user
+$article->reacted; // current login user
+
+$user->reactedOn($article);
 ```
 
 ### Events
