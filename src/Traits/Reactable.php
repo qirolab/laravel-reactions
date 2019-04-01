@@ -50,11 +50,9 @@ trait Reactable
      */
     public function reactionSummary()
     {
-        return $this->reactions()
-            ->getQuery()
-            ->select('type', \DB::raw('count(*) as count'))
-            ->groupBy('type')
-            ->get();
+        return $this->reactions->groupBy('type')->map(function ($val) {
+            return $val->count();
+        });
     }
 
     /**

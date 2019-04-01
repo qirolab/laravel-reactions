@@ -115,10 +115,10 @@ $article->reaction_summary->toArray();
 // output
 /*
 [
-    ['type' => 'clap', 'count' => '4'],
-    ['type' => 'dislike', 'count' => '2'],
-    ['type' => 'hooray', 'count' => '1'],
-    ['type' => 'like', 'count' => '5']
+    "like" => 5,
+    "dislike" => 2,
+    "clap" => 4,
+    "hooray" => 1
 ]
 */
 ```
