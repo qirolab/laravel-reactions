@@ -3,6 +3,7 @@
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
 use Qirolab\Tests\Laravel\Reactions\TestCase;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 
@@ -122,12 +123,14 @@ class ReactableTest extends TestCase
 
         $this->actingAs($user);
 
-        $article->toggleReaction('like');
+        $reaction = $article->toggleReaction('like');
+        $this->assertInstanceOf(Reaction::class, $reaction);
         $this->assertEquals(1, $article->reactions()->count());
         $this->assertEquals($user->id, $article->reactions()->first()->user_id);
         $this->assertEquals('like', $article->reactions()->first()->type);
 
-        $article->toggleReaction('clap');
+        $reaction = $article->toggleReaction('clap');
+        $this->assertInstanceOf(Reaction::class, $reaction);
         $this->assertEquals(1, $article->reactions()->count());
         $this->assertEquals($user->id, $article->reactions()->first()->user_id);
         $this->assertEquals('clap', $article->reactions()->first()->type);

@@ -105,14 +105,14 @@ trait Reactable
      *
      * @param  mixed $reactionType
      * @param  mixed $user
-     * @return void
+     * @return void|Reaction
      */
     public function toggleReaction($reactionType, $user = null)
     {
         $user = $this->getUser($user);
 
         if ($user) {
-            $user->toggleReactionOn($this, $reactionType);
+            return $user->toggleReactionOn($this, $reactionType);
         }
     }
 
