@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.3.0 - 2019-09-18
+- Laravel 6.0 support
+
 ## 2.2.0 - 2019-04-01
 
 ### Fixed
