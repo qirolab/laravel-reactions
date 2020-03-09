@@ -2,9 +2,9 @@
 
 namespace Qirolab\Laravel\Reactions\Events;
 
-use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 
 class OnDeleteReaction
 {

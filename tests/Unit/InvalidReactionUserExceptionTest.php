@@ -2,10 +2,10 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 use Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class InvalidReactionUserExceptionTest extends TestCase
 {
