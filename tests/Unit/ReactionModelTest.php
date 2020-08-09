@@ -2,11 +2,11 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactionModelTest extends TestCase
 {
