@@ -105,7 +105,7 @@ $article->isReactBy(); // current login user
 $article->isReactBy($user);
 ```
 
-### Reaction summery on model
+### Reaction summary on model
 ```php
 $article->reactionSummary();
 $article->reaction_summary;
