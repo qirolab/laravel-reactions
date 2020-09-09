@@ -3,9 +3,9 @@
 namespace Qirolab\Laravel\Reactions\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
-use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 
 trait Reactable
 {
