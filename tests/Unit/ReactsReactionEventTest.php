@@ -2,23 +2,31 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Laravel\Reactions\Events\OnReaction;
 use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Laravel\Reactions\Events\OnReaction;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactsReactionEventTest extends TestCase
 {
+    protected $article;
+
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->article = $this->createArticle();
+        $this->user = $this->createUser();
+    }
+
     /** @test */
     public function it_can_fire_model_was_reacted_event()
     {
         $this->expectsEvents(OnReaction::class);
 
-        $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
 
-        $user->reactTo($article, 'like');
+        $this->user->reactTo($this->article, 'like');
     }
 
     /** @test */
@@ -26,10 +34,7 @@ class ReactsReactionEventTest extends TestCase
     {
         $this->expectsEvents(OnReaction::class);
 
-        $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-
-        $user->toggleReactionOn($article, 'like');
+        $this->user->toggleReactionOn($this->article, 'like');
     }
 
     /** @test */
@@ -38,15 +43,12 @@ class ReactsReactionEventTest extends TestCase
         $this->expectsEvents(OnDeleteReaction::class);
         $this->expectsEvents(OnReaction::class);
 
-        $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-
-        $article->reactions()->create([
-            'user_id' => $user->getKey(),
+        $this->article->reactions()->create([
+            'user_id' => $this->user->getKey(),
             'type' => 'like',
         ]);
 
-        $user->reactTo($article, 'clap');
+        $this->user->reactTo($this->article, 'clap');
     }
 
     /** @test */
@@ -55,15 +57,12 @@ class ReactsReactionEventTest extends TestCase
         $this->expectsEvents(OnDeleteReaction::class);
         $this->expectsEvents(OnReaction::class);
 
-        $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-
-        $article->reactions()->create([
-            'user_id' => $user->getKey(),
+        $this->article->reactions()->create([
+            'user_id' => $this->user->getKey(),
             'type' => 'like',
         ]);
 
-        $user->toggleReactionOn($article, 'clap');
+        $this->user->toggleReactionOn($this->article, 'clap');
     }
 
     /** @test **/
@@ -71,14 +70,11 @@ class ReactsReactionEventTest extends TestCase
     {
         $this->expectsEvents(OnDeleteReaction::class);
 
-        $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
-
-        $article->reactions()->create([
-            'user_id' => $user->getKey(),
+        $this->article->reactions()->create([
+            'user_id' => $this->user->getKey(),
             'type' => 'like',
         ]);
 
-        $user->removeReactionFrom($article);
+        $this->user->removeReactionFrom($this->article);
     }
 }

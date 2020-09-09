@@ -3,7 +3,6 @@
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
 use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 
 class ReactableScopeTest extends TestCase
@@ -11,19 +10,19 @@ class ReactableScopeTest extends TestCase
     /** @test */
     public function it_can_get_where_reacted_by_current_user()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
-        $articles = factory(Article::class, 3)->create();
+        $articles = $this->createArticle([], 3);
 
         foreach ($articles as $key => $article) {
             $article->react('like');
         }
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $articles = factory(Article::class, 2)->create();
+        $articles = $this->createArticle([], 2);
 
         foreach ($articles as $key => $article) {
             $article->react('like', $user);
@@ -37,15 +36,15 @@ class ReactableScopeTest extends TestCase
     /** @test */
     public function it_can_get_where_reacted_by_concrete_user()
     {
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
 
-        $articles = factory(Article::class, 3)->create();
+        $articles = $this->createArticle([], 3);
 
         foreach ($articles as $key => $article) {
             $article->react('like', $user1);
         }
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
 
         $reactedArticles = Article::whereReactedBy($user1)->get();
         $shouldBeEmpty = Article::whereReactedBy($user2)->get();

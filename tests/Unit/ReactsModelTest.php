@@ -2,19 +2,17 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
 use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactsModelTest extends TestCase
 {
     /** @test */
     public function it_can_react_to_reactable_model()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -28,11 +26,11 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_react_to_reactable_by_other_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
 
         $this->actingAs($user1);
 
@@ -46,10 +44,10 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_reactions_many_reactables()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article1 = factory(Article::class)->create();
-        $article2 = factory(Article::class)->create();
+        $article1 = $this->createArticle();
+        $article2 = $this->createArticle();
 
         $user->reactTo($article1, 'like');
         $user->reactTo($article2, 'like');
@@ -64,9 +62,9 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_cannot_duplicate_react()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->reactTo($article, 'like');
         $user->reactTo($article, 'dislike');
@@ -77,9 +75,9 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_remove_reaction_on_reactable()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->reactTo($article, 'like');
 
@@ -91,11 +89,11 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_remove_reaction_from_reacted_reactable_model()
     {
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user2->reactTo($article, 'like');
 
@@ -107,9 +105,9 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_react_with_toggle()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->toggleReactionOn($article, 'like');
 
@@ -119,9 +117,9 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_toggle_reaction_type()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->toggleReactionOn($article, 'like');
         $this->assertEquals(1, $article->reactions()->count());
@@ -135,9 +133,9 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_remove_reaction_with_toggle()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->reactTo($article, 'like');
 
@@ -149,15 +147,15 @@ class ReactsModelTest extends TestCase
     /** @test */
     public function it_can_check_if_reacted_on_reactable_model()
     {
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user1->reactTo($article, 'like');
 
         $this->assertTrue($user1->isReactedOn($article));
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
 
         $this->assertFalse($user2->isReactedOn($article));
     }
@@ -165,9 +163,9 @@ class ReactsModelTest extends TestCase
     /** @test **/
     public function it_can_have_reacted_reaction_on_reactable_model()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $user->reactTo($article, 'like');
 

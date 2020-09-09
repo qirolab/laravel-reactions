@@ -2,19 +2,17 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
 use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactableTest extends TestCase
 {
     /** @test */
     public function it_can_react_by_current_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -28,11 +26,11 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_react_by_concrete_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
 
         $this->actingAs($user1);
 
@@ -44,9 +42,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_has_multiple_reactions()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $users = factory(User::class, 5)->create();
+        $users = $this->createUser([], 5);
 
         foreach ($users as $key => $user) {
             $article->react('like', $user);
@@ -58,9 +56,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_cannot_duplicate_react()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->react('like', $user);
         $article->react('like', $user);
@@ -71,9 +69,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_remove_reaction()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -87,12 +85,12 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_cannot_remove_reaction_by_user_if_not_reacted()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user1 = factory(User::class)->create();
+        $user1 = $this->createUser();
         $article->react('like', $user1);
 
-        $user2 = factory(User::class)->create();
+        $user2 = $this->createUser();
         $article->removeReaction($user2);
 
         $this->assertEquals(1, $article->reactions->count());
@@ -101,9 +99,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_add_reaction_with_toggle_by_current_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -117,9 +115,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_toggle_reaction_type_by_current_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -139,9 +137,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_remove_reaction_with_toggle_by_current_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -155,9 +153,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_add_reaction_with_toggle_by_concrete_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->toggleReaction('like', $user);
 
@@ -169,9 +167,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_toggle_reaction_type_by_concrete_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->toggleReaction('like', $user);
         $this->assertEquals(1, $article->reactions()->count());
@@ -187,9 +185,9 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_remove_reaction_with_toggle_by_concrete_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->react('like', $user);
 
@@ -201,11 +199,11 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_check_if_entity_reacted_by_current_user()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $article->react('like');
 
@@ -215,10 +213,10 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_check_if_entity_liked_by_concrete_user()
     {
-        $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create();
+        $user1 = $this->createUser();
+        $user2 = $this->createUser();
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $article->react('like', $user1);
 
@@ -230,11 +228,11 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_check_if_entity_liked_by_current_user_using_attribute()
     {
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $article->react('like');
 
@@ -244,24 +242,24 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_has_reaction_summery()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $users = factory(User::class, 5)->create();
+        $users = $this->createUser([], 5);
         foreach ($users as $key => $user) {
             $article->react('like', $user);
         }
 
-        $users = factory(User::class, 2)->create();
+        $users = $this->createUser([], 2);
         foreach ($users as $key => $user) {
             $article->react('dislike', $user);
         }
 
-        $users = factory(User::class, 4)->create();
+        $users = $this->createUser([], 4);
         foreach ($users as $key => $user) {
             $article->react('clap', $user);
         }
 
-        $users = factory(User::class, 1)->create();
+        $users = $this->createUser([], 1);
         foreach ($users as $key => $user) {
             $article->react('hooray', $user);
         }
@@ -279,24 +277,24 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_has_reaction_summery_attribute()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $users = factory(User::class, 5)->create();
+        $users = $this->createUser([], 5);
         foreach ($users as $key => $user) {
             $article->react('like', $user);
         }
 
-        $users = factory(User::class, 2)->create();
+        $users = $this->createUser([], 2);
         foreach ($users as $key => $user) {
             $article->react('dislike', $user);
         }
 
-        $users = factory(User::class, 4)->create();
+        $users = $this->createUser([], 4);
         foreach ($users as $key => $user) {
             $article->react('clap', $user);
         }
 
-        $users = factory(User::class, 1)->create();
+        $users = $this->createUser([], 1);
         foreach ($users as $key => $user) {
             $article->react('hooray', $user);
         }
@@ -314,9 +312,9 @@ class ReactableTest extends TestCase
     /** @test **/
     public function it_can_has_collection_of_reactions_by_users()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $users = factory(User::class, 5)->create();
+        $users = $this->createUser([], 5);
         foreach ($users as $key => $user) {
             if ($key >= 3) {
                 $article->react('like', $user);
@@ -331,9 +329,9 @@ class ReactableTest extends TestCase
     /** @test **/
     public function it_can_has_collection_of_reactions_by_users_using_attribute()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $users = factory(User::class, 5)->create();
+        $users = $this->createUser([], 5);
         foreach ($users as $key => $user) {
             if ($key >= 3) {
                 $article->react('like', $user);
@@ -348,9 +346,9 @@ class ReactableTest extends TestCase
     /** @test **/
     public function it_can_has_reacted_reactions_by_current_login_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
@@ -365,9 +363,9 @@ class ReactableTest extends TestCase
     /** @test **/
     public function it_can_has_reacted_reactions_by_given_user()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->react('like', $user);
 

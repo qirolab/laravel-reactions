@@ -2,8 +2,12 @@
 
 namespace Qirolab\Tests\Laravel\Reactions;
 
+use Faker\Factory;
+use Faker\Generator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 
 abstract class TestCase extends Orchestra
@@ -22,8 +26,6 @@ abstract class TestCase extends Orchestra
         $this->publishPackageMigrations();
 
         $this->setUpDatabase();
-
-        $this->registerPackageFactories();
 
         $this->registerUserModel();
     }
@@ -48,7 +50,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory(__DIR__.'/../vendor/orchestra/testbench-core/laravel/database/migrations');
+        File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
 
     /**
@@ -81,24 +83,13 @@ abstract class TestCase extends Orchestra
      */
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../migrations/2018_07_10_000000_create_reactions_table.php';
-        include_once __DIR__.'/database/migrations/2018_07_10_000000_create_users_table.php';
-        include_once __DIR__.'/database/migrations/2018_07_11_000000_create_articles_table.php';
+        include_once __DIR__ . '/../migrations/2018_07_10_000000_create_reactions_table.php';
+        include_once __DIR__ . '/database/migrations/2018_07_10_000000_create_users_table.php';
+        include_once __DIR__ . '/database/migrations/2018_07_11_000000_create_articles_table.php';
 
         (new \CreateReactionsTable())->up();
         (new \CreateUsersTable())->up();
         (new \CreateArticlesTable())->up();
-    }
-
-    /**
-     * Register package related model factories.
-     *
-     * @return void
-     */
-    protected function registerPackageFactories()
-    {
-        $pathToFactories = realpath(__DIR__.'/database/factories');
-        $this->withFactories($pathToFactories);
     }
 
     /**
@@ -109,5 +100,55 @@ abstract class TestCase extends Orchestra
     protected function registerUserModel()
     {
         $this->app['config']->set('auth.providers.users.model', User::class);
+    }
+
+    protected function faker($locale = null)
+    {
+        $locale = $locale ??  Factory::DEFAULT_LOCALE;
+
+        if (isset($this->app) && $this->app->bound(Generator::class)) {
+            return $this->app->make(Generator::class, ['locale' => $locale]);
+        }
+
+        return Factory::create($locale);
+    }
+
+    public function factory($class, $attributes = [], $amount = null)
+    {
+        if (isset($amount) && is_int($amount)) {
+            $resource = [];
+
+            for ($i = 0; $i < $amount; $i++) {
+                $resource[] = (new $class)->create($attributes);
+            }
+
+            return new Collection($resource);
+        }
+
+        return (new $class)->create($attributes);
+    }
+
+    public function createArticle($attributes = [],  $amount = null)
+    {
+        return $this->factory(
+            Article::class,
+            array_merge(
+                ['title' => $this->faker()->sentence],
+                $attributes
+            ),
+            $amount
+        );
+    }
+
+    public function createUser($attributes = [],  $amount = null)
+    {
+        return $this->factory(
+            User::class,
+            array_merge(
+                ['name' => $this->faker()->name],
+                $attributes
+            ),
+            $amount
+        );
     }
 }

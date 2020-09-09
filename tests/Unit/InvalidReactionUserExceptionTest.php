@@ -2,10 +2,9 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
 use Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class InvalidReactionUserExceptionTest extends TestCase
 {
@@ -14,7 +13,7 @@ class InvalidReactionUserExceptionTest extends TestCase
     {
         $this->expectException(InvalidReactionUser::class);
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $article->react('like');
     }
@@ -24,9 +23,9 @@ class InvalidReactionUserExceptionTest extends TestCase
     {
         $this->expectException(InvalidReactionUser::class);
 
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 

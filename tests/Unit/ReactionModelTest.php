@@ -2,11 +2,10 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactionModelTest extends TestCase
 {
@@ -33,7 +32,7 @@ class ReactionModelTest extends TestCase
     /** @test */
     public function it_can_belong_to_reactable_model()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
         $article->reactions()->create([
             'user_id' => 23,
@@ -46,9 +45,9 @@ class ReactionModelTest extends TestCase
     /** @test **/
     public function it_can_belong_to_user_model()
     {
-        $article = factory(Article::class)->create();
+        $article = $this->createArticle();
 
-        $user = factory(User::class)->create();
+        $user = $this->createUser();
 
         $article->reactions()->create([
             'user_id' => $user->getKey(),
