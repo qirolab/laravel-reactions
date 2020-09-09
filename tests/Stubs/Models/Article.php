@@ -3,8 +3,8 @@
 namespace Qirolab\Tests\Laravel\Reactions\Stubs\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Article extends Model implements ReactableInterface
 {

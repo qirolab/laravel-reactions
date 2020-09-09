@@ -2,9 +2,9 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
-use Qirolab\Tests\Laravel\Reactions\TestCase;
-use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
+use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactableScopeTest extends TestCase
 {

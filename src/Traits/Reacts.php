@@ -2,10 +2,10 @@
 
 namespace Qirolab\Laravel\Reactions\Traits;
 
-use Qirolab\Laravel\Reactions\Models\Reaction;
-use Qirolab\Laravel\Reactions\Events\OnReaction;
-use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
+use Qirolab\Laravel\Reactions\Events\OnReaction;
+use Qirolab\Laravel\Reactions\Models\Reaction;
 
 trait Reacts
 {
