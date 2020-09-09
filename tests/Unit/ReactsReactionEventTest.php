@@ -25,7 +25,6 @@ class ReactsReactionEventTest extends TestCase
     {
         $this->expectsEvents(OnReaction::class);
 
-
         $this->user->reactTo($this->article, 'like');
     }
 
