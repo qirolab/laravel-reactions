@@ -1,6 +1,16 @@
-# Laravel Reactions [![GitHub release](https://img.shields.io/github/release/qirolab/laravel-reactions.svg?style=flat-square)](https://github.com/qirolab/laravel-reactions) [![Travis (.org) branch](https://img.shields.io/travis/qirolab/laravel-reactions/master.svg?style=flat-square)](https://github.com/qirolab/laravel-reactions) [![StyleCI](https://github.styleci.io/repos/140428012/shield?branch=master)](https://github.styleci.io/repos/140428012) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/qirolab/laravel-reactions)
+# Add Reactions (like, dislike, etc.) to Eloquent Model
 
-Laravel reactions package for implementing reactions (eg: like, dislike, love, emotion etc) on Eloquent models.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/qirolab/laravel-reactions.svg?style=flat-square)](https://packagist.org/packages/qirolab/laravel-reactions)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/qirolab/laravel-reactions/Tests?label=Tests)](https://github.com/qirolab/laravel-reactions/actions?query=workflow%3ATests+branch%3Amaster)
+[![Styling](https://github.com/qirolab/laravel-reactions/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/qirolab/laravel-reactions/actions?query=workflow%3A%22Check+%26+fix+styling%22)
+[![Psalm](https://github.com/qirolab/laravel-reactions/workflows/Psalm/badge.svg)](https://github.com/qirolab/laravel-reactions/actions?query=workflow%3APsalm)
+[![Total Downloads](https://img.shields.io/packagist/dt/qirolab/laravel-reactions.svg?style=flat-square)](https://packagist.org/packages/qirolab/laravel-reactions)
+
+
+Laravel reactions package for implementing reactions (eg: like, dislike, love,
+emotion etc) on Eloquent models.
+
+<img src="https://i.imgur.com/F5xIdWE.png" />
 
 ## Installation
 

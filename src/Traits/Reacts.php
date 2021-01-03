@@ -12,8 +12,9 @@ trait Reacts
     /**
      * Reaction on reactable model.
      *
-     * @param  ReactableInterface $reactable
-     * @param  mixed              $type
+     * @param ReactableInterface $reactable
+     * @param mixed              $type
+     *
      * @return Reaction
      */
     public function reactTo(ReactableInterface $reactable, $type)
@@ -38,7 +39,8 @@ trait Reacts
     /**
      * Remove reaction from reactable model.
      *
-     * @param  ReactableInterface $reactable
+     * @param ReactableInterface $reactable
+     *
      * @return void
      */
     public function removeReactionFrom(ReactableInterface $reactable)
@@ -57,8 +59,9 @@ trait Reacts
     /**
      * Toggle reaction on reactable model.
      *
-     * @param  ReactableInterface $reactable
-     * @param  mixed              $type
+     * @param ReactableInterface $reactable
+     * @param mixed              $type
+     *
      * @return void
      */
     public function toggleReactionOn(ReactableInterface $reactable, $type)
@@ -83,7 +86,8 @@ trait Reacts
     /**
      * Reaction on reactable model.
      *
-     * @param  ReactableInterface $reactable
+     * @param ReactableInterface $reactable
+     *
      * @return Reaction
      */
     public function ReactedOn(ReactableInterface $reactable)
@@ -94,8 +98,9 @@ trait Reacts
     /**
      * Check is reacted on reactable model.
      *
-     * @param  ReactableInterface $reactable
-     * @param  mixed              $type
+     * @param ReactableInterface $reactable
+     * @param mixed              $type
+     *
      * @return bool
      */
     public function isReactedOn(ReactableInterface $reactable, $type = null)
@@ -116,8 +121,8 @@ trait Reacts
     /**
      * Store reaction.
      *
-     * @param  ReactableInterface                       $reactable
-     * @param  mixed                                    $type
+     * @param  ReactableInterface                         $reactable
+     * @param  mixed                                      $type
      * @return \Qirolab\Laravel\Reactions\Models\Reaction
      */
     protected function storeReaction(ReactableInterface $reactable, $type)

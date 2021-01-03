@@ -11,29 +11,31 @@ class OnReaction
     /**
      * The reactable model.
      *
-     * @var \Qirolab\Laravel\Reactions\Traits\Reactable
+     * @var ReactableInterface
      */
     public $reactable;
 
     /**
      * User who reacted on model.
      *
-     * @var \Qirolab\Laravel\Reactions\Traits\Reacts
+     * @var ReactsInterface
      */
     public $reactBy;
 
     /**
      * Reaction model.
      *
-     * @var \Qirolab\Laravel\Reactions\Models\Reaction
+     * @var Reaction
      */
     public $reaction;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Qirolab\Laravel\Reactions\Traits\Reactable $reactable
-     * @param  \Qirolab\Laravel\Reactions\Traits\Reacts    $reactBy
+     * @param ReactableInterface $reactable
+     * @param Reaction           $reaction
+     * @param ReactsInterface    $reactBy
+     *
      * @return void
      */
     public function __construct(ReactableInterface $reactable, Reaction $reaction, ReactsInterface $reactBy)
