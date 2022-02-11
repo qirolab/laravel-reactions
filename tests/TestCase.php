@@ -66,7 +66,7 @@ abstract class TestCase extends Orchestra
     /**
      * Load package service provider.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -119,13 +119,13 @@ abstract class TestCase extends Orchestra
             $resource = [];
 
             for ($i = 0; $i < $amount; $i++) {
-                $resource[] = (new $class)->create($attributes);
+                $resource[] = (new $class())->create($attributes);
             }
 
             return new Collection($resource);
         }
 
-        return (new $class)->create($attributes);
+        return (new $class())->create($attributes);
     }
 
     public function createArticle($attributes = [], $amount = null)
