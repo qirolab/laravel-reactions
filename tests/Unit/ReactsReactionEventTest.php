@@ -2,12 +2,15 @@
 
 namespace Qirolab\Tests\Laravel\Reactions\Unit;
 
+use Illuminate\Foundation\Testing\Concerns\MocksApplicationServices;
 use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
 use Qirolab\Laravel\Reactions\Events\OnReaction;
 use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactsReactionEventTest extends TestCase
 {
+    use MocksApplicationServices;
+
     protected $article;
 
     protected $user;
