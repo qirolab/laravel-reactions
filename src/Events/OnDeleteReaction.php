@@ -32,10 +32,9 @@ class OnDeleteReaction
     /**
      * Create a new event instance.
      *
-     * @param ReactableInterface $reactable
-     * @param Reaction           $reaction
-     * @param ReactsInterface    $reactBy
-     *
+     * @param  ReactableInterface  $reactable
+     * @param  Reaction  $reaction
+     * @param  ReactsInterface  $reactBy
      * @return void
      */
     public function __construct(ReactableInterface $reactable, Reaction $reaction, ReactsInterface $reactBy)

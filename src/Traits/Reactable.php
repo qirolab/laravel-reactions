@@ -68,8 +68,8 @@ trait Reactable
     /**
      * Add reaction.
      *
-     * @param  mixed         $reactionType
-     * @param  mixed         $user
+     * @param  mixed  $reactionType
+     * @param  mixed  $user
      * @return Reaction|bool
      */
     public function react($reactionType, $user = null)
@@ -86,7 +86,7 @@ trait Reactable
     /**
      * Remove reaction.
      *
-     * @param  mixed $user
+     * @param  mixed  $user
      * @return bool
      */
     public function removeReaction($user = null)
@@ -103,8 +103,8 @@ trait Reactable
     /**
      * Toggle Reaction.
      *
-     * @param  mixed $reactionType
-     * @param  mixed $user
+     * @param  mixed  $reactionType
+     * @param  mixed  $user
      * @return void|Reaction
      */
     public function toggleReaction($reactionType, $user = null)
@@ -119,7 +119,7 @@ trait Reactable
     /**
      * Reaction on reactable model by user.
      *
-     * @param mixed $user
+     * @param  mixed  $user
      * @return Reaction
      */
     public function reacted($user = null)
@@ -142,7 +142,7 @@ trait Reactable
     /**
      * Check is reacted by user.
      *
-     * @param  mixed $user
+     * @param  mixed  $user
      * @return bool
      */
     public function isReactBy($user = null, $type = null)
@@ -159,7 +159,7 @@ trait Reactable
     /**
      * Check is reacted by user.
      *
-     * @param  mixed $user
+     * @param  mixed  $user
      * @return bool
      */
     public function getIsReactedAttribute()
@@ -171,9 +171,10 @@ trait Reactable
      * Fetch records that are reacted by a given user.
      *
      * @todo think about method name
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @param  string                                $type
-     * @param  null|int|ReactsInterface              $userId
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $type
+     * @param  null|int|ReactsInterface  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throw \Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser
@@ -204,7 +205,7 @@ trait Reactable
     /**
      * Get user model.
      *
-     * @param  mixed           $user
+     * @param  mixed  $user
      * @return ReactsInterface
      *
      * @throw \Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser

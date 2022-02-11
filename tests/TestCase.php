@@ -66,7 +66,7 @@ abstract class TestCase extends Orchestra
     /**
      * Load package service provider.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
