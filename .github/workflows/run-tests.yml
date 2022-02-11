@@ -19,6 +19,8 @@ jobs:
             stability: prefer-lowest
           - laravel: 8.*
             php: 7.2
+          - laravel: 9.*
+            php: 8.0
         include:
           - laravel: 6.*
             testbench: 4.*
