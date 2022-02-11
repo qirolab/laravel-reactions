@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.6.0 - 2022-02-11
+
+- Laravel 9.0 support
+- Drop support for Laravel 5.*
+
 ## 2.5.0 - 2020-09-09
 
 - Laravel 8.0 support
