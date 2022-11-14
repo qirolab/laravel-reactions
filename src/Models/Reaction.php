@@ -25,7 +25,7 @@ class Reaction extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setTable(config('reactions.table_name') ?? 'reactions');
+        $this->setTable(config('reactions.table_name', 'reactions'));
         parent::__construct($attributes);
     }
 

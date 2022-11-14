@@ -16,7 +16,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(config('reactions.table_name'), function (Blueprint $table) {
+        Schema::create(config('reactions.table_name', 'reactions'), function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->morphs('reactable');
