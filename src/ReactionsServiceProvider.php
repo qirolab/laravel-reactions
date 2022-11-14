@@ -29,7 +29,8 @@ class ReactionsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/reactions.php', 'reactions'
+            __DIR__.'/../config/reactions.php',
+            'reactions'
         );
     }
 
