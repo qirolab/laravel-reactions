@@ -16,8 +16,8 @@ class ReactionsServiceProvider extends ServiceProvider
         $this->loadMigrations();
 
         $this->publishes([
-            __DIR__.'/../config/reactions.php' => config_path('reactions.php'),
-        ]);
+            __DIR__.'/../config/reactions.php' => config_path('reactions.php')
+        ], 'reactions-config');
     }
 
     /**
