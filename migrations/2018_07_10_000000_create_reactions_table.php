@@ -16,7 +16,7 @@ class CreateReactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reactions', function (Blueprint $table) {
+        Schema::create(config('activitylog.table_name'), function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->morphs('reactable');
