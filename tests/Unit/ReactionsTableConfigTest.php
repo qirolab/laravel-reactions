@@ -16,11 +16,13 @@ class ReactionsTableConfigTest extends TestCase
     public function it_may_change_reactions_table_from_configuration()
     {
         $this->assertEquals(
-            config()->get('reactions.table_name'), 'test-reactions'
+            config()->get('reactions.table_name'),
+            'test-reactions'
         );
 
         $this->assertEquals(
-            (new Reaction())->getTable(), 'test-reactions'
+            (new Reaction())->getTable(),
+            'test-reactions'
         );
 
         $article = $this->createArticle();
