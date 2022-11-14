@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Class CreateLoveLikesTable.
  */
-return new class extends Migration
+class CreateReactionsTable extends Migration
 {
     /**
      * Run the migrations.
