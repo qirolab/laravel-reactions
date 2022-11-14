@@ -14,6 +14,11 @@ class ReactionsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrations();
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/reactions.php' => config_path('reactions.php'),
+            ], 'config');
+        }
     }
 
     /**
@@ -23,6 +28,9 @@ class ReactionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/reactions.php', 'reactions'
+        );
     }
 
     /**

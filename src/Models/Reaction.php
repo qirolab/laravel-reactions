@@ -12,6 +12,7 @@ class Reaction extends Model
      * @var string
      */
     protected $table = 'reactions';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +22,12 @@ class Reaction extends Model
         'user_id',
         'type',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        $this->setTable(config('reactions.table_name', 'reactions'));
+        parent::__construct($attributes);
+    }
 
     /**
      * Reactable model relation.
