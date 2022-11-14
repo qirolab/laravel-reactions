@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.6.1 - 2022-11-14
+
+- Add a publishable config file with a 'table_name' key
+
 ## 2.6.0 - 2022-02-11
 
 - Laravel 9.0 support
