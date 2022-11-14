@@ -15,9 +15,13 @@ class ReactionsServiceProvider extends ServiceProvider
     {
         $this->loadMigrations();
 
-        $this->publishes([
-            __DIR__.'/../config/reactions.php' => config_path('reactions.php')
-        ], 'reactions-config');
+        if ($this->app->runningInConsole()) {
+
+            $this->publishes([
+                __DIR__ . '/../config/reactions.php' => config_path('reactions.php'),
+            ], 'config');
+
+        }
     }
 
     /**
@@ -27,6 +31,9 @@ class ReactionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/reactions.php', 'reactions'
+        );
     }
 
     /**
@@ -37,7 +44,7 @@ class ReactionsServiceProvider extends ServiceProvider
     protected function loadMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $migrationsPath = __DIR__.'/../migrations';
+            $migrationsPath = __DIR__ . '/../migrations';
 
             $this->publishes([
                 $migrationsPath => database_path('migrations'),
