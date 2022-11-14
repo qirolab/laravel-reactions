@@ -40,4 +40,4 @@ class CreateReactionsTable extends Migration
     {
         Schema::dropIfExists('reactions');
     }
-};
+}
