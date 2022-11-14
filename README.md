@@ -46,6 +46,11 @@ Run database migrations.
 $ php artisan migrate
 ```
 
+You can optionally publish the config file with:
+```bash
+$ php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag="config"
+```
+
 ## Usage
 
 ### Prepare Reacts (User) Model
