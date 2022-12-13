@@ -50,8 +50,10 @@ trait Reactable
      */
     public function reactionSummary()
     {
-        return $this->reactions->groupBy('type')->map(function ($val) {
-            return $val->count();
+        return $this->reactions()->groupBy('type')->selectRaw('type, count(id) as total_count')->get()->mapWithKeys(function ($val) {
+            return [
+                $val->type => $val->total_count,
+            ];
         });
     }
 
