@@ -61,7 +61,7 @@ trait Reactable
             ->selectRaw('type, count(id) as total_count')
             ->get()
             ->mapWithKeys(function ($val) {
-                return [ $val->type => $val->total_count ];
+                return [$val->type => $val->total_count];
             });
     }
 
