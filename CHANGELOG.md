@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.6.2 - 2022-12-13
+
+- Optimize Reaction Summary
+
 ## 2.6.1 - 2022-11-14
 
 - Add a publishable config file with a 'table_name' key

@@ -309,6 +309,42 @@ class ReactableTest extends TestCase
         ], $summaryAsArray);
     }
 
+    /** @test */
+    public function it_has_reaction_summery_on_relation_is_eagerly_loaded()
+    {
+        $article = $this->createArticle();
+
+        $users = $this->createUser([], 5);
+        foreach ($users as $key => $user) {
+            $article->react('like', $user);
+        }
+
+        $users = $this->createUser([], 2);
+        foreach ($users as $key => $user) {
+            $article->react('dislike', $user);
+        }
+
+        $users = $this->createUser([], 4);
+        foreach ($users as $key => $user) {
+            $article->react('clap', $user);
+        }
+
+        $users = $this->createUser([], 1);
+        foreach ($users as $key => $user) {
+            $article->react('hooray', $user);
+        }
+
+        $article->load('reactions');
+        $summaryAsArray = $article->reactionSummary()->toArray();
+
+        $this->assertEquals([
+            'like' => 5,
+            'dislike' => 2,
+            'clap' => 4,
+            'hooray' => 1,
+        ], $summaryAsArray);
+    }
+
     /** @test **/
     public function it_can_has_collection_of_reactions_by_users()
     {
