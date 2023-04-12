@@ -20,7 +20,7 @@ emotion etc) on Eloquent models.
 Download package into the project using Composer.
 
 ```bash
-$ composer require qirolab/laravel-reactions
+composer require qirolab/laravel-reactions
 ```
 
 ### Registering package
@@ -38,18 +38,18 @@ For Laravel 5.4 or earlier releases version include the service provider within 
 If you want to make changes in migrations, publish them to your application first.
 
 ```bash
-$ php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag=migrations
 ```
 
 Run database migrations.
 ```bash
-$ php artisan migrate
+php artisan migrate
 ```
 
 ### Config File
 You can optionally publish the config file with:
 ```bash
-$ php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Qirolab\Laravel\Reactions\ReactionsServiceProvider" --tag="config"
 ```
 
 ## Usage
@@ -177,5 +177,5 @@ On each reaction removed `\Qirolab\Laravel\Reactions\Events\OnDeleteReaction` ev
 Run the tests with:
 
 ```bash
-$ vendor/bin/phpunit
+vendor/bin/phpunit
 ```
