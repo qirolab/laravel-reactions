@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 2.8.0 - 2024-03-07
+
+- Laravel 11.x support
+
 ## 2.7.0 - 2023-02-14
 
 - Drop support for Laravel v6, v7
