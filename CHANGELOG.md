@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 3.0.0 - 2024-06-11
+
+- Allow configuration for `reacts_model` and `reacts_id_column`.
+
+
 ## 2.8.0 - 2024-03-07
 
 - Laravel 11.x support
