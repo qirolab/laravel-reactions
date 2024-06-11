@@ -197,7 +197,7 @@ trait Reactable
         try {
             $user = $this->getUser($userId);
         } catch (InvalidReactionUser $e) {
-            if (!$user && !$userId) {
+            if (! $user && ! $userId) {
                 throw InvalidReactionUser::notDefined();
             }
         }
@@ -223,7 +223,7 @@ trait Reactable
      */
     private function getUser($user = null)
     {
-        if (!$user && auth()->check()) {
+        if (! $user && auth()->check()) {
             return auth()->user();
         }
 
@@ -231,7 +231,7 @@ trait Reactable
             return $user;
         }
 
-        if (!$user) {
+        if (! $user) {
             throw InvalidReactionUser::notDefined();
         }
 
