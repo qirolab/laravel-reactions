@@ -9,10 +9,10 @@ use Qirolab\Tests\Laravel\Reactions\TestCase;
 class ReactsProfileModelTest extends TestCase
 {
     /**
-    * Actions to be performed on PHPUnit start.
-    *
-    * @return void
-    */
+     * Actions to be performed on PHPUnit start.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();

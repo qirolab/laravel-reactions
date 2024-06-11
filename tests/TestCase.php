@@ -51,7 +51,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
+        File::cleanDirectory(__DIR__.'/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
 
     /**
@@ -84,9 +84,9 @@ abstract class TestCase extends Orchestra
      */
     protected function setUpDatabase()
     {
-        include_once __DIR__ . '/../migrations/2018_07_10_000000_create_reactions_table.php';
-        include_once __DIR__ . '/database/migrations/2018_07_10_000000_create_users_table.php';
-        include_once __DIR__ . '/database/migrations/2018_07_11_000000_create_articles_table.php';
+        include_once __DIR__.'/../migrations/2018_07_10_000000_create_reactions_table.php';
+        include_once __DIR__.'/database/migrations/2018_07_10_000000_create_users_table.php';
+        include_once __DIR__.'/database/migrations/2018_07_11_000000_create_articles_table.php';
 
         (new \CreateReactionsTable())->up();
         (new \CreateUsersTable())->up();
