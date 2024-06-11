@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Article;
+use Qirolab\Tests\Laravel\Reactions\Stubs\Models\Profile;
 use Qirolab\Tests\Laravel\Reactions\Stubs\Models\User;
 
 abstract class TestCase extends Orchestra
@@ -50,7 +51,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory(__DIR__.'/../vendor/orchestra/testbench-core/laravel/database/migrations');
+        File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
 
     /**
@@ -83,9 +84,9 @@ abstract class TestCase extends Orchestra
      */
     protected function setUpDatabase()
     {
-        include_once __DIR__.'/../migrations/2018_07_10_000000_create_reactions_table.php';
-        include_once __DIR__.'/database/migrations/2018_07_10_000000_create_users_table.php';
-        include_once __DIR__.'/database/migrations/2018_07_11_000000_create_articles_table.php';
+        include_once __DIR__ . '/../migrations/2018_07_10_000000_create_reactions_table.php';
+        include_once __DIR__ . '/database/migrations/2018_07_10_000000_create_users_table.php';
+        include_once __DIR__ . '/database/migrations/2018_07_11_000000_create_articles_table.php';
 
         (new \CreateReactionsTable())->up();
         (new \CreateUsersTable())->up();
@@ -144,6 +145,18 @@ abstract class TestCase extends Orchestra
     {
         return $this->factory(
             User::class,
+            array_merge(
+                ['name' => $this->faker()->name],
+                $attributes
+            ),
+            $amount
+        );
+    }
+
+    public function createProfile($attributes = [], $amount = null)
+    {
+        return $this->factory(
+            Profile::class,
             array_merge(
                 ['name' => $this->faker()->name],
                 $attributes

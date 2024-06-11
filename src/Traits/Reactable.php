@@ -5,6 +5,7 @@ namespace Qirolab\Laravel\Reactions\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser;
+use Qirolab\Laravel\Reactions\Helper;
 use Qirolab\Laravel\Reactions\Models\Reaction;
 
 trait Reactable
@@ -26,9 +27,9 @@ trait Reactable
      */
     public function reactionsBy()
     {
-        $userModel = $this->resolveUserModel();
+        $userModel = Helper::resolveReactsModel();
 
-        $userIds = $this->reactions->pluck('user_id');
+        $userIds = $this->reactions->pluck(Helper::resolveReactsIdColumn());
 
         return $userModel::whereKey($userIds)->get();
     }
@@ -136,7 +137,7 @@ trait Reactable
     {
         $user = $this->getUser($user);
 
-        return $this->reactions->where('user_id', $user->getKey())->first();
+        return $this->reactions->where(Helper::resolveReactsIdColumn(), $user->getKey())->first();
     }
 
     /**
@@ -196,7 +197,7 @@ trait Reactable
         try {
             $user = $this->getUser($userId);
         } catch (InvalidReactionUser $e) {
-            if (! $user && ! $userId) {
+            if (!$user && !$userId) {
                 throw InvalidReactionUser::notDefined();
             }
         }
@@ -204,7 +205,7 @@ trait Reactable
         $userId = ($user) ? $user->getKey() : $userId;
 
         return $query->whereHas('reactions', function ($innerQuery) use ($userId, $type) {
-            $innerQuery->where('user_id', $userId);
+            $innerQuery->where(Helper::resolveReactsIdColumn(), $userId);
 
             if ($type) {
                 $innerQuery->where('type', $type);
@@ -222,7 +223,7 @@ trait Reactable
      */
     private function getUser($user = null)
     {
-        if (! $user && auth()->check()) {
+        if (!$user && auth()->check()) {
             return auth()->user();
         }
 
@@ -230,20 +231,10 @@ trait Reactable
             return $user;
         }
 
-        if (! $user) {
+        if (!$user) {
             throw InvalidReactionUser::notDefined();
         }
 
         throw InvalidReactionUser::invalidReactByUser();
-    }
-
-    /**
-     * Retrieve User's model class name.
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable
-     */
-    private function resolveUserModel()
-    {
-        return config('auth.providers.users.model');
     }
 }

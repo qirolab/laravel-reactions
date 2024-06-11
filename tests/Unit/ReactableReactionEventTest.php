@@ -5,6 +5,7 @@ namespace Qirolab\Tests\Laravel\Reactions\Unit;
 use Illuminate\Support\Facades\Event;
 use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
 use Qirolab\Laravel\Reactions\Events\OnReaction;
+use Qirolab\Laravel\Reactions\Helper;
 use Qirolab\Tests\Laravel\Reactions\TestCase;
 
 class ReactableReactionEventTest extends TestCase
@@ -41,7 +42,7 @@ class ReactableReactionEventTest extends TestCase
     public function it_can_fire_reaction_deleted_and_model_was_reacted_event_on_change_reaction()
     {
         $this->article->reactions()->create([
-            'user_id' => $this->user->getKey(),
+            Helper::resolveReactsIdColumn() => $this->user->getKey(),
             'type' => 'like',
         ]);
 
@@ -55,7 +56,7 @@ class ReactableReactionEventTest extends TestCase
     public function it_can_fire_reaction_deleted_and_model_was_reacted_event_on_change_reaction_via_toggle()
     {
         $this->article->reactions()->create([
-            'user_id' => $this->user->getKey(),
+            Helper::resolveReactsIdColumn() => $this->user->getKey(),
             'type' => 'like',
         ]);
 
@@ -68,7 +69,7 @@ class ReactableReactionEventTest extends TestCase
     public function it_can_fire_reaction_was_deleted_event()
     {
         $this->article->reactions()->create([
-            'user_id' => $this->user->getKey(),
+            Helper::resolveReactsIdColumn() => $this->user->getKey(),
             'type' => 'like',
         ]);
 

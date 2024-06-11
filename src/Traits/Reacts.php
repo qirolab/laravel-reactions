@@ -5,6 +5,7 @@ namespace Qirolab\Laravel\Reactions\Traits;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Events\OnDeleteReaction;
 use Qirolab\Laravel\Reactions\Events\OnReaction;
+use Qirolab\Laravel\Reactions\Helper;
 use Qirolab\Laravel\Reactions\Models\Reaction;
 
 trait Reacts
@@ -19,10 +20,10 @@ trait Reacts
     public function reactTo(ReactableInterface $reactable, $type)
     {
         $reaction = $reactable->reactions()->where([
-            'user_id' => $this->getKey(),
+            Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (! $reaction) {
+        if (!$reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
@@ -44,10 +45,10 @@ trait Reacts
     public function removeReactionFrom(ReactableInterface $reactable)
     {
         $reaction = $reactable->reactions()->where([
-            'user_id' => $this->getKey(),
+            Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (! $reaction) {
+        if (!$reaction) {
             return;
         }
 
@@ -64,10 +65,10 @@ trait Reacts
     public function toggleReactionOn(ReactableInterface $reactable, $type)
     {
         $reaction = $reactable->reactions()->where([
-            'user_id' => $this->getKey(),
+            Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (! $reaction) {
+        if (!$reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
@@ -101,7 +102,7 @@ trait Reacts
     public function isReactedOn(ReactableInterface $reactable, $type = null)
     {
         $isReacted = $reactable->reactions()->where([
-            'user_id' => $this->getKey(),
+            Helper::resolveReactsIdColumn() => $this->getKey(),
         ]);
 
         if ($type) {
@@ -123,7 +124,7 @@ trait Reacts
     protected function storeReaction(ReactableInterface $reactable, $type)
     {
         $reaction = $reactable->reactions()->create([
-            'user_id' => $this->getKey(),
+            Helper::resolveReactsIdColumn() => $this->getKey(),
             'type' => $type,
         ]);
 

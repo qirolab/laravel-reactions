@@ -3,6 +3,7 @@
 namespace Qirolab\Laravel\Reactions\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Qirolab\Laravel\Reactions\Helper;
 
 class Reaction extends Model
 {
@@ -14,14 +15,11 @@ class Reaction extends Model
     protected $table = 'reactions';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-        'type',
-    ];
+    protected $guarded = [];
 
     public function __construct(array $attributes = [])
     {
@@ -46,8 +44,9 @@ class Reaction extends Model
      */
     public function reactBy()
     {
-        $userModel = config('auth.providers.users.model');
+        $userModel = Helper::resolveReactsModel();
+        $userIdColumn = Helper::resolveReactsIdColumn();
 
-        return $this->belongsTo($userModel, 'user_id');
+        return $this->belongsTo($userModel, $userIdColumn);
     }
 }
