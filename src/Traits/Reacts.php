@@ -23,7 +23,7 @@ trait Reacts
             Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
@@ -48,7 +48,7 @@ trait Reacts
             Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return;
         }
 
@@ -68,7 +68,7 @@ trait Reacts
             Helper::resolveReactsIdColumn() => $this->getKey(),
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             return $this->storeReaction($reactable, $type);
         }
 
