@@ -2,10 +2,21 @@
 
 All notable changes to `laravel-reactions` will be documented in this file
 
+## 3.2.1 - 2026-04-28
+
+- Fixed github workflow tests
+
+## 3.2.0 - 2026-03-06
+
+- Laravel 12.x support.
+
+## 3.1.0 - 2025-02-26
+
+- Laravel 12.x support.
+
 ## 3.0.0 - 2024-06-11
 
 - Allow configuration for `reacts_model` and `reacts_id_column`.
-
 
 ## 2.8.0 - 2024-03-07
 
@@ -27,7 +38,7 @@ All notable changes to `laravel-reactions` will be documented in this file
 ## 2.6.0 - 2022-02-11
 
 - Laravel 9.0 support
-- Drop support for Laravel 5.*
+- Drop support for Laravel 5.\*
 
 ## 2.5.0 - 2020-09-09
 
