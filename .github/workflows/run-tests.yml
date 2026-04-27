@@ -60,7 +60,6 @@ jobs:
           composer require \
             "laravel/framework:${{ matrix.laravel }}" \
             "orchestra/testbench:${{ matrix.testbench }}" \
-            "phpunit/phpunit:^11.5.50" \
             --dev \
             --no-interaction \
             --no-update
