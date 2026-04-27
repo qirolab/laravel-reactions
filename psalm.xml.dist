@@ -15,4 +15,7 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MissingOverrideAttribute errorLevel="info"/>
+    </issueHandlers>
 </psalm>
