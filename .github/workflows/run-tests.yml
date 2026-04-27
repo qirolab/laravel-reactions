@@ -2,11 +2,7 @@ name: Tests
 
 on:
   push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - master
 
 jobs:
   test:
@@ -14,24 +10,58 @@ jobs:
 
     strategy:
       fail-fast: false
+
       matrix:
         os: [ubuntu-latest]
-        php: ['8.2', '8.3', '8.4']
+        php: [7.3, 7.4, 8.0, 8.1, 8.2]
         laravel: ['11.*', '12.*', '13.*']
-
-        include:
-          - laravel: 11.*
-            testbench: 9.*
-          - laravel: 12.*
-            testbench: 10.*
-          - laravel: 13.*
-            testbench: 11.*
+        stability: [prefer-lowest, prefer-stable]
 
         exclude:
-          - laravel: 13.*
-            php: '8.2'
+          # Laravel 11 requires PHP 8.2+
+          - laravel: '11.*'
+            php: 7.3
+          - laravel: '11.*'
+            php: 7.4
+          - laravel: '11.*'
+            php: 8.0
+          - laravel: '11.*'
+            php: 8.1
 
-    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+          # Laravel 12 requires PHP 8.2+
+          - laravel: '12.*'
+            php: 7.3
+          - laravel: '12.*'
+            php: 7.4
+          - laravel: '12.*'
+            php: 8.0
+          - laravel: '12.*'
+            php: 8.1
+
+          # Laravel 13 requires PHP 8.2+
+          - laravel: '13.*'
+            php: 8.2
+
+        include:
+          - laravel: '8.*'
+            testbench: '6.*'
+
+          - laravel: '9.*'
+            testbench: '7.*'
+
+          - laravel: '10.*'
+            testbench: '8.*'
+
+          - laravel: '11.*'
+            testbench: '9.*'
+
+          - laravel: '12.*'
+            testbench: '10.*'
+
+          - laravel: '13.*'
+            testbench: '11.*'
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}
 
     steps:
       - name: Checkout code
@@ -41,25 +71,31 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          coverage: none
           extensions: >
             dom, curl, libxml, mbstring, zip, pcntl,
-            pdo, sqlite, pdo_sqlite, bcmath,
-            soap, intl, gd, exif, iconv, imagick, fileinfo
+            pdo, sqlite, pdo_sqlite, bcmath, soap,
+            intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
 
-      - name: Validate composer.json
-        run: composer validate --strict --no-check-lock
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
         run: |
+          TESTBENCH_VERSION="${{ matrix.testbench }}"
+
           composer require \
             "laravel/framework:${{ matrix.laravel }}" \
-            "orchestra/testbench:${{ matrix.testbench }}" \
-            --dev \
+            "orchestra/testbench:${TESTBENCH_VERSION}" \
             --no-interaction \
             --no-update
 
-          composer update --prefer-dist --no-interaction -W
+          composer update \
+            --${{ matrix.stability }} \
+            --prefer-dist \
+            --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
