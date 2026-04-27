@@ -2,17 +2,23 @@ name: Psalm
 
 on:
   push:
+    branches:
+      - master
     paths:
-      - '**.php'
+      - '**/*.php'
       - 'psalm.xml.dist'
       - 'composer.json'
       - 'composer.lock'
+      - '.github/workflows/psalm.yml'
   pull_request:
+    branches:
+      - master
     paths:
-      - '**.php'
+      - '**/*.php'
       - 'psalm.xml.dist'
       - 'composer.json'
       - 'composer.lock'
+      - '.github/workflows/psalm.yml'
 
 jobs:
   psalm:
